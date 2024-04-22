@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import Img from '../conponents/Images/image1.png';
+import Img from '../components/Images/image1.png';
 
 function Login(){
 

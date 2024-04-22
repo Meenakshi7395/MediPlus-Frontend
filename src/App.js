@@ -2,10 +2,10 @@ import './App.css';
 import Layout from './layouts/Layout';
 import { Routes,Route } from 'react-router';
 import Users from './pages/Users';
-import AddUser from './conponents/Users/AddUser';
+import AddUser from './components/Users/AddUser';
 import Login from './pages/Login';
-import ViewUser from './conponents/Users/ViewUser';
-import EditUser from './conponents/Users/EditUser';
+import ViewUser from './components/Users/ViewUser';
+import EditUser from './components/Users/EditUser';
 
 
 
