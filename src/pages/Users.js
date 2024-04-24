@@ -7,11 +7,18 @@ import Button from 'react-bootstrap/Button';
 
 import React, { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
+import DeleteUser from '../components/Users/DeleteUser';
 
 
 function Users(){
     
     const [users,setUsers] = useState([])
+
+    const [deleteModalShow, setDeleteModalShow] = useState(false);
+
+    const handleClose = () => setDeleteModalShow(false);
+    const handleShow = () => setDeleteModalShow(true);
+
 
     function getAllUsers()   
     {
@@ -88,7 +95,8 @@ function Users(){
                                     <td>
                                         <Link to={"/users/view/"+user._id} className="btn btn-success">View</Link>
                                         <Link to={"/users/edit/"+user._id} className="btn btn-primary" style={{marginLeft:3}}>Edit</Link>
-                                        <Link to={"/users/delete/"+user._id} className="btn btn-warning"  style={{marginLeft:3}}>Delete</Link>
+                                        <Button className="btn btn-warning"  style={{marginLeft:3}} onClick={handleShow}>Delete</Button>
+                                         <DeleteUser id={user._id} name={user.name} show={deleteModalShow} handleClose={handleClose}/>
                                     </td>
                                 </tr>
                             })}

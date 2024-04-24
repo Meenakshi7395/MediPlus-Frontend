@@ -4,27 +4,28 @@ import Card from 'react-bootstrap/Card';
 import React, { useState,useEffect } from "react";
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import DeleteMedicine from './DeleteMedicine';
 
 
-function ViewPatient(){
+function ViewMedicine(){
 
     /// read the id from query parameter of the url 
     const { id } = useParams(); // Access the userId parameter
 
-    const [patientData,setPatientData] = useState({
-        name: '',
-        age:'',  
-        gender:'',
-        mobile:'',
-        address:'',
-        careTaker:''
+    const [medicineData,setMedicineData] = useState({
+        brandName: '',
+        chemicalName:'',  
+        category:'',
+        description:'',
+        unitPrice:'',
+        manufecturer:''
     })
   
     /// use this id to make api call to server to fetch the user
 
     function getById()   
     {
-        fetch("http://localhost:5000/patients/"+id,{
+        fetch("http://localhost:5000/medicines/"+id,{
             method:'GET',
             headers:{
                 'Authorization': `Bearer ${localStorage.getItem("accessToken")}`,
@@ -40,7 +41,7 @@ function ViewPatient(){
             console.log(data);
             if(data.success)
             {
-                setPatientData(data.patients)
+                setMedicineData(data.medicines)
             }
             else
             {
@@ -58,19 +59,19 @@ function ViewPatient(){
         <Row>
           <Col sm={3}></Col>
           <Col sm={6} style={{marginTop:50}}>
-          <Card style={{backgroundColor:'#FFF0F5'}}>
-          <Card.Header style={{backgroundColor:"#DDA0DD",fontFamily:'sans-serif'}}>View Patient's Detail</Card.Header>
+          <Card style={{backgroundColor:'#B0E0E6'}}>
+          <Card.Header style={{backgroundColor:"#00BFFF",fontFamily:'sans-serif'}}>View Medicine's Detail</Card.Header>
           <Card.Body>
-            <p><strong>Name : </strong>{patientData.name}</p>
-            <p><strong>Age : </strong> {patientData.age}</p>
-            <p><strong>Gender : </strong>{patientData.gender}</p>
-            <p><strong>Mobile : </strong>{patientData.mobile}</p>
-            <p><strong>Address : </strong>{patientData.address}</p>
-            <p><strong>CareTaker : </strong>{patientData.address}</p>
+            <p><strong>Brand Name : </strong>{medicineData.brandName}</p>
+            <p><strong>Chemical Name : </strong> {medicineData.chemicalName}</p>
+            <p><strong>category : </strong>{medicineData.category}</p>
+            <p><strong>Description : </strong>{medicineData.description}</p>
+            <p><strong>Unit Price : </strong>{medicineData.unitPrice}</p>
+            <p><strong>Manufecturer : </strong>{medicineData.manufecturer}</p>
             
-            <Link to={"/patients/"} className="btn btn-danger">Back</Link>
-            <Link to={"/patients/edit/"+patientData._id} className="btn btn-primary" style={{marginLeft:3}}>Edit</Link>
-            
+            <Link to={"/medicines/"} className="btn btn-danger">Back</Link>
+            <Link to={"/medicines/edit/"+medicineData._id} className="btn btn-primary" style={{marginLeft:3}}>Edit</Link>
+            <DeleteMedicine id={medicineData._id} brandName={medicineData.brandName}/>
           </Card.Body>
         </Card>
           </Col>
@@ -80,4 +81,4 @@ function ViewPatient(){
     </>
 }
 
-export default ViewPatient;
+export default ViewMedicine;
