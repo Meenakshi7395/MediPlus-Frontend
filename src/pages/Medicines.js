@@ -60,7 +60,7 @@ function Medicines(){
         <Row>
             <Col sm={1}></Col>
             <Col sm={10} style={{marginTop:"20px"}}>
-                <Link to="/medicines/add" className="btn btn-danger" style={{marginBottom:10}}>Add </Link>
+                <Link to="/medicines/add" className="btn btn-info" style={{marginBottom:5}}>Add </Link>
                 <Card>
                     <Card.Header style={{backgroundColor:"#00BFFF"}}>Medicines Detail</Card.Header>
                     <Card.Body style={{backgroundColor:'#B0E0E6'}}>

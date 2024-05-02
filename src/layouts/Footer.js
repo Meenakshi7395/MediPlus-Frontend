@@ -11,7 +11,7 @@ const footerStyle = {
     width: '100%',
 }
     return <>
-      <footer style={footerStyle}>Developed & Maintained By Meenakshi Sharma</footer>
+      {/* <footer style={footerStyle}>Developed & Maintained By Meenakshi Sharma</footer> */}
     </>
 }
 

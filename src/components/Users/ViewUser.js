@@ -68,8 +68,8 @@ function ViewUser(){
             <p><strong>Role : </strong>{userData.role}</p>
             <p><strong>About : </strong>{userData.about}</p>
             
-            <Link to={"/users/"} className="btn btn-danger">Back</Link>
-            <Link to={"/users/edit/"+userData._id} className="btn btn-primary" style={{marginLeft:3}}>Edit</Link>
+            <Link to={"/users/"} className="btn btn-secondary">Back</Link>
+            <Link to={"/users/edit/"+userData._id} className="btn btn-info" style={{marginLeft:3}}>Edit</Link>
             
           </Card.Body>
         </Card>

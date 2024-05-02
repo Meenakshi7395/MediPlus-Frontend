@@ -4,7 +4,7 @@ import Card from 'react-bootstrap/Card';
 import React, { useState,useEffect } from "react";
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import DeleteMedicine from './DeleteMedicine';
+import DeleteMedicine from './DeleteMedicine/';
 
 
 function ViewMedicine(){
@@ -69,8 +69,8 @@ function ViewMedicine(){
             <p><strong>Unit Price : </strong>{medicineData.unitPrice}</p>
             <p><strong>Manufecturer : </strong>{medicineData.manufecturer}</p>
             
-            <Link to={"/medicines/"} className="btn btn-danger">Back</Link>
-            <Link to={"/medicines/edit/"+medicineData._id} className="btn btn-primary" style={{marginLeft:3}}>Edit</Link>
+            <Link to={"/medicines/"} className="btn btn-secondary">Back</Link>
+            <Link to={"/medicines/edit/"+medicineData._id} className="btn btn-info" style={{marginLeft:3}}>Edit</Link>
             <DeleteMedicine id={medicineData._id} brandName={medicineData.brandName}/>
           </Card.Body>
         </Card>

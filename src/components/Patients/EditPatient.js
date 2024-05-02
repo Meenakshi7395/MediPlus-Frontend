@@ -204,9 +204,9 @@ function EditPatient(){
 
       <Button variant="success" type='submit' >Submit</Button>
 
-      <Link to={"/patients/"} className="btn btn-warning" style={{marginLeft:20}}>Patients</Link>
+      <Link to={"/patients/"} className="btn btn-info" style={{marginLeft:20}}>Patients</Link>
 
-      <Link to={"/patients/view/"+formData._id} className="btn btn-primary"  style={{marginLeft:20}}>View</Link>
+      <Link to={"/patients/view/"+formData._id} className="btn btn-info"  style={{marginLeft:20}}>View</Link>
         </Form>
       </Card.Body>
     </Card>

@@ -14,6 +14,8 @@ import Medicines from './pages/Medicines';
 import AddMedicine from './components/Medicines/AddMedicine';
 import ViewMedicine from './components/Medicines/ViewMedicine';
 import EditMedicine from './components/Medicines/EditMedicine';
+import AddIncident from './components/Incidents/AddIncident';
+import EditIncident from './components/Incidents/EditIncidents';
 
 // import Navigation from './components/layouts/Navigation';
 function App() {
@@ -40,6 +42,10 @@ function App() {
         <Route path="/medicines/view/:id" element={<ViewMedicine/>}></Route>
         <Route path="/medicines/edit/:id" element={<EditMedicine/>}></Route>
         
+        <Route path="/incidents/:patientId/:patientName" element={<AddIncident/>}></Route>
+        <Route path="/incidents/edit/:id" element={<EditIncident/>}></Route>
+        <Route path="/incidents/view/:id" element={<ViewMedicine/>}></Route>
+
       </Routes>
     </Layout>
   );

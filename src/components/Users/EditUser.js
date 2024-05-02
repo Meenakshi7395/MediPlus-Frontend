@@ -198,9 +198,9 @@ function EditUser(){
       </Form.Group>
       <Button variant="success" type='submit' >Submit</Button>
 
-      <Link to={"/users/"} className="btn btn-warning" style={{marginLeft:20}}>Users</Link>
+      <Link to={"/users/"} className="btn btn-info" style={{marginLeft:20}}>Users</Link>
 
-      <Link to={"/users/view/"+formData._id} className="btn btn-primary"  style={{marginLeft:20}}>View</Link>
+      <Link to={"/users/view/"+formData._id} className="btn btn-info"  style={{marginLeft:20}}>View</Link>
         </Form>
       </Card.Body>
     </Card>

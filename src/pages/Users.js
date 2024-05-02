@@ -66,7 +66,7 @@ function Users(){
         <Row>
             <Col sm={1}></Col>
             <Col sm={10} style={{marginTop:"20px"}}>
-                <Link to="/users/add" className="btn btn-danger" style={{marginBottom:10}}>Add </Link>
+                <Link to="/users/add" className="btn btn-info" style={{marginBottom:5}}>Add </Link>
                 <Card>
                     <Card.Header style={{backgroundColor:"lightgreen"}}>Your all Detail</Card.Header>
                     <Card.Body style={{backgroundColor:'#F0FFF0'}}>
