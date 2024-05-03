@@ -150,7 +150,7 @@ function EditMedicine(){
                     <Form.Label >
                         Brand Name :
                     </Form.Label>
-                <Form.Control type="text" name='brandName' placeholder='brand Name' value={formData.brandName} onChange={handleChange} />
+                <Form.Control type="text" name='brandName'  value={formData.brandName} onChange={handleChange} />
                 </Form.Group>
             </Col>
 
@@ -159,7 +159,7 @@ function EditMedicine(){
                    <Form.Label>
                         Chemical Name :
                     </Form.Label>
-               <Form.Control type="text" name='chemicalName' placeholder="chemicalName" value={formData.chemicalName} onChange={handleChange} />
+               <Form.Control type="text" name='chemicalName' value={formData.chemicalName} onChange={handleChange} />
                </Form.Group>
             </Col>
       </Row>

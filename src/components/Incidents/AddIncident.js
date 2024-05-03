@@ -103,12 +103,10 @@ function AddIncident(){
      
       <Card style={{backgroundColor:'#FFF0F5'}}>
         <Card.Header style={{backgroundColor:"#DDA0DD", fontFamily:'sans-serif'}} >Patient's Detail</Card.Header>
-          <Card.Body>
+        <Card.Body>
             <Form className='form' onSubmit={handleSubmit}>
 
               <Row>
-                {/* <Col><p><strong>Patient's Name :</strong>
-                <Form.Control type="text" value={patientName} onChange={handleChange} /></p></Col> */}
                 <Col>
                       <Form.Group  >
                         <Form.Label >

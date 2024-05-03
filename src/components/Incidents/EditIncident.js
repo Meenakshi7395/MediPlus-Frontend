@@ -11,10 +11,10 @@ import { Link } from 'react-router-dom';
 const status = ['Open','Closed','Hold'];
 
 function EditIncident(){
-    const { patient_id } = useParams();
+    const {id } = useParams();
 
   const[formData,setFormData]=useState({
-    patient: patient_id,
+    patient:'',
     date :'', 
     chiefComplaint :'',
     diagnosis :'',
@@ -36,7 +36,7 @@ function EditIncident(){
       e.preventDefault();
       console.log(formData);
 
-      fetch("http://localhost:5000/incidents/"+patient_id,{
+      fetch("http://localhost:5000/incidents/"+id,{
           method:'PATCH',
           headers:{
             'Authorization': `Bearer ${localStorage.getItem("accessToken")}`,
@@ -63,7 +63,7 @@ function EditIncident(){
 
       //redirect medicines page here
        setTimeout(()=>{
-        navigate("/incidents/"+patient_id);
+        navigate("/patients/view/"+formData.patient._id);
        },2000)
         
       }
@@ -86,7 +86,7 @@ function EditIncident(){
 
     function getById()   
     {
-        fetch("http://localhost:5000/incidents/"+patient_id,{
+        fetch("http://localhost:5000/incidents/"+id,{
             method:'GET',
                                                         
         }).then(response =>{
@@ -100,7 +100,7 @@ function EditIncident(){
             console.log(data);
             if(data.success)
             {
-                setFormData(data.incidents)
+                setFormData(data.incident)
             }
             else
             {
@@ -134,30 +134,46 @@ function EditIncident(){
       <Card.Header style={{backgroundColor:"#00BFFF" , fontFamily:'sans-serif'}}>Edit Incident's Detail</Card.Header>
       <Card.Body>
             <Form className='form' onSubmit={handleSubmit}>
+                <Row>
+                <Col>
+                      <Form.Group  >
+                        <Form.Label >
+                          <strong>Patient :</strong>
+                        </Form.Label>
+                        <Form.Control type="text"  name='name' value={formData.patient.name} onChange={handleChange} /> 
+                      </Form.Group>
+                </Col>
 
-              <Row>
-                <Col><p><strong>Patient's Name :</strong>{}</p></Col>
-                <Col></Col>
+                <Col>
+                    <Form.Group  >
+                        <Form.Label >
+                          <strong>Date :</strong>
+                        </Form.Label>
+                        <Form.Control type="date"  name='date' value={formData.date}  onChange={handleChange} /> 
+                      </Form.Group>
+                </Col>
               </Row>
+              <p></p>
 
               <Row>
                 <Col>
-                    <Form.Group as={Row} className="mb-2" >
+                    <Form.Group>
                     <Form.Label >
                       <strong>Diagnosis :</strong>
                     </Form.Label>
-                      <textarea  name='diagonosis' placeholder="Diagnosis" onChange={handleChange}  ></textarea>
+                    <Form.Control as="textarea" name='diagnosis' value={formData.diagnosis} onChange={handleChange}  />
                   </Form.Group>
                 </Col>
                 <Col>
-                  <Form.Group as={Row} className="mb-2">
+                  <Form.Group>
                     <Form.Label >
-                      <strong>ChiefComplaint :</strong> 
+                      <strong>Chief Complaint :</strong> 
                     </Form.Label>
-                      <textarea  name='complatint' placeholder="Chief-Complaint" onChange={handleChange} style={{marginLeft:5} } ></textarea>
+                    <Form.Control as="textarea" name='chiefComplaint' value={formData.chiefComplaint} onChange={handleChange}  />
                   </Form.Group>
                 </Col>
               </Row>
+              <p></p>
 
               <Row>
                   <Col>
@@ -165,7 +181,7 @@ function EditIncident(){
                   <Form.Label >
                   <strong>Doctor :</strong>
                     </Form.Label>
-                       <Form.Control type="text"  name='name' placeholder="Doctor" onChange={handleChange} />
+                       <Form.Control type="text"  name='doctor' value={formData.doctor} onChange={handleChange} />
                        </Form.Group>
                  </Col>
 
@@ -174,7 +190,7 @@ function EditIncident(){
                     <Form.Label >
                     <strong>Status :</strong>
                     </Form.Label>
-                      <Form.Select aria-label="Default select example" name='status' onChange={handleChange}>
+                      <Form.Select aria-label="Default select example" name='status' value={formData.status} onChange={handleChange}>
                         {status.map((c)=>{
                             return <option value={c}>{c}</option>
                           })}
@@ -184,7 +200,7 @@ function EditIncident(){
               </Row>
               
               <Button variant="success" type='submit' style={{marginTop:10}} >Submit</Button>
-              <Link to={"/incidents/view/"+patient_id} className="btn btn-secondary" style={{marginTop:10,marginLeft:5}}>Back</Link>
+              <Link to={"/patients/view/"+formData.patient._id} className="btn btn-secondary" style={{marginTop:10,marginLeft:5}}>Back</Link>
 
               </Form>
         

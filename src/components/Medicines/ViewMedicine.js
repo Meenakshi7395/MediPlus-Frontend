@@ -4,7 +4,7 @@ import Card from 'react-bootstrap/Card';
 import React, { useState,useEffect } from "react";
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import DeleteMedicine from './DeleteMedicine/';
+import DeleteMedicine from '../Medicines/DeleteMedicine';
 
 
 function ViewMedicine(){

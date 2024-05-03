@@ -109,7 +109,7 @@ function EditPatient(){
             console.log(data);
             if(data.success)
             {
-                setFormData(data.patients)
+                setFormData(data.patient)
             }
             else
             {

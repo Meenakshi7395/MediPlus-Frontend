@@ -8,7 +8,7 @@ function DeleteIncident(props)
     const handleClose = () => setDeleteModalShow(false);
     const handleShow = () => setDeleteModalShow(true);
 
-    const [msg,setMsg] = useState(`Do you really want to Delete , ${props.brandName} ?`)
+    const [msg,setMsg] = useState(`Do you really want to Delete , ${props.name}' incident, created on, ${props.date}, whose currrent status is, ${props.status}?`)
     
     function deleteIncident()
     {
@@ -30,7 +30,7 @@ function DeleteIncident(props)
                if(data.success)
                 {
                     //alert(data.message)
-                    setMsg(`${props.name}, incident is deleted!`)
+                    setMsg(`${props.name}' incident created on ${props.date}, with current status ${props.status} is deleted!`)
                     setTimeout(()=>{
                         handleClose()
                     },2000)
@@ -46,10 +46,10 @@ function DeleteIncident(props)
         }
 
     return <>
-     <Button className="btn btn-warning"  style={{marginLeft:3}} onClick={handleShow}>Delete</Button>
+     <Button className="btn btn-warning"  style={{marginLeft:3}}onClick={handleShow}>Delete</Button>
     <Modal show={deleteModalShow} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+          <Modal.Title>Delete Alert!</Modal.Title>
         </Modal.Header>
         <Modal.Body>{msg} </Modal.Body>
         <Modal.Footer>

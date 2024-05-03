@@ -113,9 +113,9 @@ function ViewPatient(){
                                     <td>{incident.doctor}</td>
                                     <td>{incident.status}</td>
                                     <td>
-                                        <Link to={"/incidents/view/"+patientData._id} className="btn btn-success" >View</Link>
-                                        <Link to={"/incidents/edit/"+patientData._id} className="btn btn-primary"style={{marginLeft:3}} >Edit</Link>
-                                        <DeleteIncident id={incident} name={incident.name}/>
+                                        <Link to={"/incidents/view/"+incident._id} className="btn btn-success" >View</Link>
+                                        <Link to={"/incidents/edit/"+incident._id} className="btn btn-rimary"style={{marginLeft:3}} >Edit</Link>
+                                        <DeleteIncident id={incident._id} name={patientData.name} date={incident.date} status={incident.status}/>
                                     </td>
                                 </tr>
                             })}

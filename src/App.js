@@ -15,7 +15,8 @@ import AddMedicine from './components/Medicines/AddMedicine';
 import ViewMedicine from './components/Medicines/ViewMedicine';
 import EditMedicine from './components/Medicines/EditMedicine';
 import AddIncident from './components/Incidents/AddIncident';
-import EditIncident from './components/Incidents/EditIncidents';
+import EditIncident from './components/Incidents/EditIncident';
+import ViewIncident from './components/Incidents/ViewIncident';
 
 // import Navigation from './components/layouts/Navigation';
 function App() {
@@ -44,7 +45,7 @@ function App() {
         
         <Route path="/incidents/:patientId/:patientName" element={<AddIncident/>}></Route>
         <Route path="/incidents/edit/:id" element={<EditIncident/>}></Route>
-        <Route path="/incidents/view/:id" element={<ViewMedicine/>}></Route>
+        <Route path="/incidents/view/:id" element={<ViewIncident/>}></Route>
 
       </Routes>
     </Layout>
