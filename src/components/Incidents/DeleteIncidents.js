@@ -8,6 +8,7 @@ function DeleteIncident(props)
     const handleClose = () => setDeleteModalShow(false);
     const handleShow = () => setDeleteModalShow(true);
 
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                
     const [msg,setMsg] = useState(`Do you really want to Delete , ${props.name}' incident, created on, ${props.date}, whose currrent status is, ${props.status}?`)
     
     function deleteIncident()

@@ -7,7 +7,6 @@ import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import DeleteIncident from '../Incidents/DeleteIncidents';
 
-
 function ViewPatient(){
 
     /// read the id from path parameter of the url ===> /patients/view/:id
@@ -114,7 +113,7 @@ function ViewPatient(){
                                     <td>{incident.status}</td>
                                     <td>
                                         <Link to={"/incidents/view/"+incident._id} className="btn btn-success" >View</Link>
-                                        <Link to={"/incidents/edit/"+incident._id} className="btn btn-rimary"style={{marginLeft:3}} >Edit</Link>
+                                        <Link to={"/incidents/edit/"+incident._id} className="btn btn-primary" style={{marginLeft:3}} >Edit</Link>
                                         <DeleteIncident id={incident._id} name={patientData.name} date={incident.date} status={incident.status}/>
                                     </td>
                                 </tr>

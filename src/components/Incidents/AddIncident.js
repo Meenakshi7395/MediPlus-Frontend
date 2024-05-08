@@ -66,7 +66,7 @@ function AddIncident(){
 
       //redirect View patient page here
        setTimeout(()=>{
-        navigate("/patients/view"/+patientId);
+        navigate("/patients/view/"+patientId);
        },2000)
         
       }
@@ -102,7 +102,7 @@ function AddIncident(){
      </>}
      
       <Card style={{backgroundColor:'#FFF0F5'}}>
-        <Card.Header style={{backgroundColor:"#DDA0DD", fontFamily:'sans-serif'}} >Patient's Detail</Card.Header>
+        <Card.Header style={{backgroundColor:"#DDA0DD", fontFamily:'sans-serif'}} >Add Incident</Card.Header>
         <Card.Body>
             <Form className='form' onSubmit={handleSubmit}>
 

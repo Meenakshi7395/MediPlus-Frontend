@@ -17,6 +17,9 @@ import EditMedicine from './components/Medicines/EditMedicine';
 import AddIncident from './components/Incidents/AddIncident';
 import EditIncident from './components/Incidents/EditIncident';
 import ViewIncident from './components/Incidents/ViewIncident';
+import AddOPD from './components/OPDs/AddOPD';
+import AddVitals from './components/OPDs/AddVitals';
+import ViewOPD from './components/OPDs/ViewOPD';
 
 // import Navigation from './components/layouts/Navigation';
 function App() {
@@ -43,10 +46,14 @@ function App() {
         <Route path="/medicines/view/:id" element={<ViewMedicine/>}></Route>
         <Route path="/medicines/edit/:id" element={<EditMedicine/>}></Route>
         
+        {/* for all incidents */}
         <Route path="/incidents/:patientId/:patientName" element={<AddIncident/>}></Route>
         <Route path="/incidents/edit/:id" element={<EditIncident/>}></Route>
         <Route path="/incidents/view/:id" element={<ViewIncident/>}></Route>
-
+        
+       {/* for all opds */}
+       <Route path="/OPDs/view/:id" element={<ViewOPD/>}></Route>
+       
       </Routes>
     </Layout>
   );
