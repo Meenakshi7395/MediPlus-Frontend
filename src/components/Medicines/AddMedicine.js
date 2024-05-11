@@ -8,14 +8,12 @@ import { useNavigate } from "react-router-dom";
 
 function AddMedicine(){
   
-  const category=[
-    "one","two","three"
-  ]
+  const category=['Tablet','Capsule','Injection','Syrup','Drop','Ointmet']
 
   const[formData,setFormData]=useState({
       brandName: '',
       chemicalName:'',  
-      category:'',
+      category:'Tablet',
       description:'',
       unitPrice:'',
       manufecturer:''

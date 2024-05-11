@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import Img from '../components/Images/image1.png';
+import Img from '../components/Images/clinic.jpg';
 
 function Login(){
 
@@ -44,14 +44,6 @@ function Login(){
 
     .then(data =>{
 
-        /*
-        sample data
-        {
-          "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImhpbWFuc2h1MUBnbWFpbC5jb20iLCJyb2xlIjoiY3VzdG9tZXIiLCJpYXQiOjE3MTI2NTE1NzZ9.QJ4E2WvqWKSpHfHqFI1e_zMbYhwhJgMAQq4dGxOXMks"
-        }
-
-
-        */
         console.log('Login success',data);
 
         //clear form data
@@ -81,11 +73,18 @@ function Login(){
         setSubmitting(false);
     });
     
+}
 
-    }
+// const backgroundContainer  = {
+//   backgroundImage: url('./background.jpg'), /* Replace './background.jpg' with the path to your image */
+//   backgroundSize: cover,
+//   backgroundPosition: clearInterval,                   /* Adjust height as needed */
+// }
+
     return <>
+
     <Row>
-      <Col sm={6}><img src={Img} style={{height:"75vh",width:"100%",objectFit:"fill", marginTop:20}} /></Col>
+      <Col sm={6}></Col>
       <Col sm={5} style={{marginTop:80}}>
       <Card style={{backgroundColor:'#F0FFF0'}}>
       <Card.Header style={{backgroundColor:"lightgreen"}}>Login</Card.Header>

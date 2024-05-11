@@ -1,9 +1,7 @@
 import React, { useState,useEffect } from "react";
-import { Modal, Button, Row, Col, Form, Alert,Table } from "react-bootstrap";
-import DeletePrescription from "./DeletePrescription";
-import EditPrescription from "./EditPrescription";
+import { Modal, Button, Row, Col, Form, Alert } from "react-bootstrap";
 
-function AddPrescription(props) {
+function EditPrescription(props) {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -11,7 +9,7 @@ function AddPrescription(props) {
 
   const [formData, setFormData] = useState({
     opd:props.opdId,
-    medicine: '',
+    medicine:'',
     dosage: '',
     duration: ''
   });
@@ -20,7 +18,7 @@ function AddPrescription(props) {
   const [errors, setErrors] = useState([])
 
   const [medicines,setMedicines] = useState([])
-
+ 
   const [prescriptions,setPrescriptions] = useState(props.currentPrescriptions)   // set an empty array 
 
    // Function to add new prescription data to the prescriptions
@@ -28,24 +26,6 @@ function AddPrescription(props) {
     setPrescriptions([...prescriptions, prescription]);  // Add new prescription to the existing prescription data
   };
 
-    const removePrescription = (prescription) => {
-
-     const temp = []
-     for(var i=0;i<prescriptions.length;i++)
-      {
-        if(prescriptions[i]._id != prescription._id)
-          temp.push(prescriptions[i])
-      }
-
-      setPrescriptions(temp)
-      console.log(prescription._id+" deleted")
-    };
-  
-    //setPrescriptions([...prescriptions, prescription]);  // Add new prescription to the existing prescription data
-    
-  
-  
-  
   function getAllMedicines()   
   {
       fetch("http://localhost:5000/medicines",{
@@ -88,17 +68,17 @@ function AddPrescription(props) {
   function handleSubmit(e) {
     e.preventDefault();
     console.log("Hello");
+    // console.log(props.prescription);
+    // console.log(formData);
 
-    console.log(formData);
-
-    fetch("http://localhost:5000/prescriptions/", {
-      method: 'POST',
+    fetch("http://localhost:5000/prescriptions/"+props.id, {
+      method: 'PATCH',
       headers: {
         'Authorization': `Bearer ${localStorage.getItem("accessToken")}`,
         'Content-Type': 'application/json',
 
       },
-      body: JSON.stringify(formData),
+      body: JSON.stringify(props.prescriptions.formData),
     })
       .then(response => {
         console.log(response)
@@ -113,14 +93,13 @@ function AddPrescription(props) {
 
         if (data.success) {
           setErrors([])
-          setMessage("Prescription added suucefully");
+          setMessage("Prescription Updated suucefully");
 
           // add the newly created prescription to the prescriptions
           addPrescription(data.prescription)
 
           //redirect View opd page here
           setTimeout(() => {
-            setMessage("");
             handleClose();
           }, 2000)
 
@@ -131,13 +110,6 @@ function AddPrescription(props) {
           setMessage(data.message + "! Please try again")
 
         }
-       // clear form data
-      setFormData({
-        opd:props.opdId,
-        medicine: '',
-        dosage: '',
-        duration: ''
-    });
 
       })
 
@@ -147,15 +119,15 @@ function AddPrescription(props) {
   }
 
   return <>
-    <Button className="btn btn-info" style={{ marginLeft: 3 }} onClick={handleShow}>Add Prescription</Button>
+    <Button className="btn btn-info" style={{ marginLeft: 3 }} onClick={handleShow}>Edit Prescription</Button>
     <Modal show={show} onHide={handleClose} size="lg">
       <Modal.Header closeButton>
-        <Modal.Title>Add Prescription </Modal.Title>
+        <Modal.Title>Edit Prescription </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Row>
 
-          {message == "" ? <></> : <>
+          {message === "" ? <></> : <>
             <Alert variant={errors.length > 0 ? "danger" : "success"}>
               {message}
               <ul>
@@ -174,7 +146,7 @@ function AddPrescription(props) {
                 <Form.Label >
                   <strong>Medicines :</strong>
                 </Form.Label>
-                <Form.Select aria-label="Default select example" name='medicine' onChange={handleChange}>
+                <Form.Select aria-label="Default select example" name='medicine' value={props.prescriptions.brandName}>
                     {medicines.map((m)=>{
                         return <option value={m._id}>{m.chemicalName+" - "+m.brandName + " ("+m.category+")"}</option>
                     })}
@@ -191,7 +163,7 @@ function AddPrescription(props) {
                 <Form.Label >
                   <strong>Dosage :</strong>
                 </Form.Label>
-                <Form.Control type="text" name='dosage'  onChange={handleChange} />
+                <Form.Control type="text" name='dosage' value={props.prescriptions.dosage}   />
               </Form.Group>
             </Col>
 
@@ -200,7 +172,7 @@ function AddPrescription(props) {
                 <Form.Label >
                   <strong>Duration :</strong>
                 </Form.Label>
-                <Form.Control type="number" name='duration' onChange={handleChange} />
+                <Form.Control type="number" name='duration'value={props.prescriptions.duration} />
               </Form.Group>
             </Col>
 
@@ -219,32 +191,6 @@ function AddPrescription(props) {
       </Modal.Footer>
     </Modal>
 
-    <Table responsive="sm" style={{ border: 1 }}>
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Medicine Name</th>
-          <th>Dosage</th>
-          <th>Duration</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        {prescriptions.map((prescription, i) => {
-          return <tr key={i}>
-            <td>{i + 1}</td>
-            <td>{prescription.medicine.brandName}</td>
-            <td>{prescription.dosage}</td>
-            <td>{prescription.duration}</td>
-            <td>
-            <EditPrescription id={prescription._id } prescriptions={prescriptions}/>
-            <DeletePrescription id={prescription._id} name={prescription.medicine.brandName} onDelete={removePrescription}/>
-            </td>
-
-          </tr>
-        })}
-      </tbody>
-    </Table>
 </>
 }
-export default AddPrescription;
+export default EditPrescription;

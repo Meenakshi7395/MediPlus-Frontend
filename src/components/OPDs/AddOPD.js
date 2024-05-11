@@ -79,9 +79,6 @@ function AddOPD(props) {
     }
 
 
-        const [msg, setMsg] = useState(`Do you really want to Delete , ${props.name}' incident, created on, ${props.date}, whose currrent status is, ${props.status}?`)
-
-
         return <>
             <Button className="btn btn-info" style={{ marginLeft: 3 }} onClick={handleShow}>Add New OPD</Button>
             <Modal show={show} onHide={handleClose}>
@@ -89,9 +86,6 @@ function AddOPD(props) {
                     <Modal.Title>Add New OPD</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    {/* <Row>
-                        <p>{props.incidentId}</p>
-                    </Row> */}
                     <Row>
                         
                         {message =="" ? <></> : <>

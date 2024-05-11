@@ -27,9 +27,10 @@ function App() {
     <Layout>
       <Routes>
         {/* users all routes */}
+        <Route path="/" element={<Login/>}></Route>
         <Route path="/users" element={<Users/>}></Route>
         <Route path="/users/add" element={<AddUser/>}></Route>
-        <Route path="/login" element={<Login/>}></Route>
+       
         <Route path="/users/view/:id" element={<ViewUser/>}></Route>
         <Route path="/users/edit/:id" element={<EditUser/>}></Route>
         <Route path="/users/delete" element={<h2>Note Deleted</h2>}></Route>

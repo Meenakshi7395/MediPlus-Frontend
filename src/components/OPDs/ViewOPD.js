@@ -7,6 +7,7 @@ import Img from '../Images/logo.jpg';
 import Table from 'react-bootstrap/Table';
 import AddPrescription from './AddPrescription';
 import { Link } from 'react-router-dom';
+import DeletePrescription from './DeletePrescription';
 
 
 function ViewOPD() {
@@ -15,7 +16,7 @@ function ViewOPD() {
     const { id } = useParams(); // Access the userId parameter
 
     const [opdData, setopdData] = useState({
-
+      
     })
 
     const [isDataReady, setIsDataReady] = useState(false)
@@ -53,11 +54,11 @@ function ViewOPD() {
     useEffect(() => { getById() }, [])
 
     return <>
-         
+
         <Row>
             <Col sm={2}></Col>
             <Col sm={8} style={{ marginTop: 50 }}>
-            {/* <Link to={"/incidents/view/"+opdData.incident._id} className="btn btn-secondary" style={{marginBottom:5}}>Back to Incidents</Link> */}
+                {/* <Link to={"/incidents/view/"+opdData.incident._id} className="btn btn-secondary" style={{marginBottom:5}}>Back to Incidents</Link> */}
                 <Card style={{ backgroundColor: '#F0FFFF' }}>
                     <Card.Header style={{ backgroundColor: "#C0C0C0", fontFamily: 'sans-serif' }}><strong>View OPD Detail</strong></Card.Header>
                     {isDataReady ?
@@ -100,29 +101,14 @@ function ViewOPD() {
                             <p></p>
 
                             <br />
-                            <AddPrescription opdId={opdData._id} />
-                            <Table responsive="sm">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Medicine Name</th>
-                                        <th>Dosage</th>
-                                        <th>Duration</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                </tbody>
-                            </Table>
+                            <AddPrescription opdId={opdData._id} currentPrescriptions={opdData.prescriptions} />
+
 
                             <p><strong>Advice : </strong>{opdData.advice}</p>
                             <p><strong>Allergy : </strong>{opdData.allergy}</p>
 
+                            <Link to={"/incidents/view/" + opdData.incident._id} className="btn btn-secondary" style={{ marginBottom: 5 }}>Back to Incidents</Link>
+                            
                         </Card.Body>
                         : <Spinner animation="border" role="status">
                             <span className="visually-hidden">Loading...</span>
