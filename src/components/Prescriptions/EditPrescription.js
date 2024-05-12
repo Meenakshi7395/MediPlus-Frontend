@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Modal, Button,Row,Col,Form,Alert, } from "react-bootstrap";
-import { useNavigate,Link } from "react-router-dom";
+import { Modal, Button, Row, Col, Form, Alert, ModalBody, } from "react-bootstrap";
+import { useNavigate, Link } from "react-router-dom";
 
 function EditPrescription(props) {
     /*
@@ -20,15 +20,17 @@ function EditPrescription(props) {
 
     const [formData, setFormData] = useState({
         opd: props.prescription.opd,
-        medicine:props.prescription.medicine._id,
-        dosage:props.prescription.dosage,
-        duration:props.prescription.duration,
+        medicine: props.prescription.medicine._id,
+        dosage: props.prescription.dosage,
+        duration: props.prescription.duration,
     });
 
     const [message, setMessage] = useState("")
     const [errors, setErrors] = useState([])
 
-    const [medicines,setMedicines] = useState([])
+    const [medicines, setMedicines] = useState([])
+
+    const { onEdit } = props
 
     const navigate = useNavigate()
 
@@ -70,10 +72,10 @@ function EditPrescription(props) {
         e.preventDefault();
         console.log("Hello");
 
-      
+
         console.log(formData);
 
-        fetch("http://localhost:5000/prescriptions/"+props.prescription._id, {
+        fetch("http://localhost:5000/prescriptions/" + props.prescription._id, {
             method: 'PATCH',
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem("accessToken")}`,
@@ -97,8 +99,9 @@ function EditPrescription(props) {
                 if (data.success) {
                     setErrors([])
                     setMessage("Prescription updated suucefully");
-
+                    onEdit();
                     setTimeout(() => {
+                        setMessage("")
                         handleClose()
                     }, 2000)
 
@@ -118,80 +121,74 @@ function EditPrescription(props) {
     }
 
 
-        return <>
-            <Button className="btn btn-info" style={{ marginLeft: 3 }} onClick={handleShow}>Edit Prescription</Button>
-            <Modal show={show} onHide={handleClose}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Edit Prescription</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <Row>
-                        
-                        {message =="" ? <></> : <>
-                        <Alert variant= {errors.length>0 ?"danger" :"success" }>
+    return <>
+        <Button className="btn btn-info" style={{ marginLeft: 3 }} onClick={handleShow}>Edit</Button>
+        <Modal show={show} onHide={handleClose} size="lg">
+            <Modal.Header closeButton>
+                <Modal.Title>Edit Prescription</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <Row>
+                    {message == "" ? <></> : <>
+                        <Alert variant={errors.length > 0 ? "danger" : "success"}>
                             {message}
-                            <ul>
-                            {errors.map(e=>{
-                                return <li>{e.path} has {e.msg}</li>
-                            })}
-                            </ul>
-                            </Alert>
-                        </>}
+                            {errors.length > 0 ? <ul>
+                                {errors.map(e => {
+                                    return <li>{e.path} has {e.msg}</li>
+                                })}
+                            </ul> : ""}
+
+                        </Alert>
+                    </>}
+                </Row>
+                <Form className='form' onSubmit={handleSubmit}>
+
+                    <Row>
+                        <Col>
+                            <Form.Group>
+                                <Form.Label >
+                                    <strong>Medicines :</strong>
+                                </Form.Label>
+                                <Form.Select aria-label="Default select example" name='medicine' value={formData.medicine} onChange={handleChange}>
+                                    {medicines.map((m) => {
+                                        return <option value={m._id}>{m.chemicalName + " - " + m.brandName + " (" + m.category + ")"}</option>
+                                    })}
+                                </Form.Select>
+                            </Form.Group>
+                        </Col>
                     </Row>
-                    <Form className='form' onSubmit={handleSubmit}>
+                    <Row>
+                        <Col>
+                            <Form.Group>
+                                <Form.Label >
+                                    <strong>Dosage :</strong>
+                                </Form.Label>
+                                <Form.Control type="text" name='dosage' value={formData.dosage} onChange={handleChange} />
+                            </Form.Group>
+                        </Col>
+                        <Col>
+                            <Form.Group>
+                                <Form.Label >
+                                    <strong>Duration :</strong>
+                                </Form.Label>
+                                <Form.Control type="number" name='duration' value={formData.duration} onChange={handleChange} />
+                            </Form.Group>
 
-                        <Row>
-                            <Col>
-                                <Form.Group>
-                                    <Form.Label >
-                                        <strong>Medicines :</strong>
-                                    </Form.Label>
-                                    <Form.Select aria-label="Default select example" name='medicine' value={formData.medicine} onChange={handleChange}>
-                                        {medicines.map((m) => {
-                                            return <option value={m._id}>{m.chemicalName + " - " + m.brandName + " (" + m.category + ")"}</option>
-                                        })}
-                                    </Form.Select>
-                                </Form.Group>
-                            </Col>
+                        </Col>
 
-                            <Col>
-                                <Form.Group>
-                                    <Form.Label >
-                                        <strong>Dosage :</strong>
-                                    </Form.Label>
-                                    <Form.Control type="text" name='dosage' value={formData.dosage} onChange={handleChange} />
-                                </Form.Group>
-                            </Col>
-                        </Row>
-                        <p></p>
+                    </Row>
 
-                        <Row>
-                            <Col>
-                                <Form.Group>
-                                    <Form.Label >
-                                        <strong>Duration :</strong>
-                                    </Form.Label>
-                                    <Form.Control type="number" name='duration' value={formData.duration}  onChange={handleChange} />
-                                </Form.Group>
+                    <Modal.Footer>
+                        <Button variant="success" type='submit' >Submit</Button>
+                        <Button variant="secondary" onClick={handleClose}>
+                            Close
+                        </Button>
 
-                            </Col>
+                    </Modal.Footer>
+                </Form>
+            </Modal.Body>
+        </Modal>
+    </>
+}
 
-
-                        </Row>
-
-                        <Button variant="success" type='submit' style={{ marginTop: 10 }} >Submit</Button>
-
-                    </Form>
-
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
-                        Close
-                    </Button>
-                   
-                </Modal.Footer>
-            </Modal>
-        </>
-    }
-
-    export default EditPrescription;
+export default EditPrescription;

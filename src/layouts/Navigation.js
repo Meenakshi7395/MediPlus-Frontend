@@ -9,7 +9,6 @@ function Navigation (){
             <Navbar.Brand href="">MediPlus</Navbar.Brand>
             <Nav className="me-auto">
             <Nav.Link href="/users">Users</Nav.Link>
-            <Nav.Link href='/login'>Login</Nav.Link>
             <Nav.Link href='/patients'>Patients</Nav.Link>
             <Nav.Link href='/medicines'>Medicines</Nav.Link>
             </Nav>

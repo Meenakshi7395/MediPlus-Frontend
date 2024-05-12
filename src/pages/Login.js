@@ -57,12 +57,9 @@ function Login(){
 
         // now save accessToekn in local storage in order to access it in further reuquests to server
         localStorage.setItem("accessToken",data.accessToken)
-
-        //var accessToken = localStorage.getItem("accessToken")
-
         
         //redirect notes page here
-        navigate("/users");
+        navigate("/patients");
 
     })
 
@@ -75,50 +72,49 @@ function Login(){
     
 }
 
-// const backgroundContainer  = {
-//   backgroundImage: url('./background.jpg'), /* Replace './background.jpg' with the path to your image */
-//   backgroundSize: cover,
-//   backgroundPosition: clearInterval,                   /* Adjust height as needed */
-// }
+  return <>
+    <Card className="bg-dark text-white">
+      <Card.Img src={Img} alt="Card image" />
+      <Card.ImgOverlay>
+        <Card.Title>MediPlus</Card.Title>
+        <Row>
+          <Col sm={4}></Col>
+          <Col sm={4} style={{ marginTop: 80 }}>
+            <Card style={{ backgroundColor: '#F0FFF0' }}>
+              <Card.Header style={{ backgroundColor: "lightgreen" }}>Login</Card.Header>
+              <Card.Body>
+                
+                <Form className='form' onSubmit={handleSubmit}>
+                  
+                  <Form.Group as={Row} className="mb-3">
+                    <Form.Label column sm="3">
+                      Your Email :
+                    </Form.Label>
+                    <Col sm="9">
+                      <Form.Control type="email" name="email" placeholder='email' onChange={handleChange} />
+                    </Col>
+                  </Form.Group>
 
-    return <>
-   
-    <Row>
-      <Col sm={6}></Col>
-      <Col sm={5} style={{marginTop:80}}>
-      <Card style={{backgroundColor:'#F0FFF0'}}>
-      <Card.Header style={{backgroundColor:"lightgreen"}}>Login</Card.Header>
-      <Card.Body>
-        <Form className='form' onSubmit={handleSubmit}>
-        <Form.Group as={Row} className="mb-3">
-        <Form.Label column sm="3">
-        Your Email :
-        </Form.Label>
-        <Col sm="9">
-          <Form.Control type="email" name="email" placeholder='email' onChange={handleChange} />
-        </Col>
-      </Form.Group>
+                  <Form.Group as={Row} className="mb-3" >
+                    <Form.Label column sm="3">
+                      Password :
+                    </Form.Label>
+                    <Col sm="9">
+                      <Form.Control type="password" name='password' placeholder="Password" onChange={handleChange} />
+                    </Col>
+                  </Form.Group>
 
-      <Form.Group as={Row} className="mb-3" >
-        <Form.Label column sm="3">
-         Password :
-        </Form.Label>
-        <Col sm="9">
-          <Form.Control type="password" name='password' placeholder="Password" onChange={handleChange} />
-        </Col>
-      </Form.Group>
+                  <Button variant="success" type="submit" >Login</Button>
+                </Form>
+              
+              </Card.Body>
+            </Card>
+          </Col>
+          <Col sm={4}></Col>
+        </Row>
 
-  
-      <Button variant="success" type="submit" >Login</Button>
-        </Form>
-        
-
-      </Card.Body>
+      </Card.ImgOverlay>
     </Card>
-      </Col>
-      <Col sm={1}></Col>
-    </Row>
-     
     </>
 }
 

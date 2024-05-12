@@ -14,14 +14,17 @@ function ViewOPD() {
     /// read the id from query parameter of the url 
     const { id } = useParams(); // Access the userId parameter
 
-    const [opdData, setopdData] = useState({
-      
-    })
+    const [opdData, setopdData] = useState({})
 
     const [isDataReady, setIsDataReady] = useState(false)
 
-    /// use this id to make api call to server to fetch the incidents
+    const [isDataChange, setIsDataChange] =useState(0)
 
+    function dataChange(){
+        setIsDataChange((isDataChange) => isDataChange + 1);
+    }
+
+    /// use this id to make api call to server to fetch the incidents
     function getById() {
         fetch("http://localhost:5000/OPDs/" + id, {
             method: 'GET',
@@ -50,7 +53,9 @@ function ViewOPD() {
             });
     }
 
-    useEffect(() => { getById() }, [])
+
+
+    useEffect(() => { getById() }, [isDataChange])
 
     return <>
 
@@ -100,7 +105,7 @@ function ViewOPD() {
                             <p></p>
 
                             <br />
-                            <AddPrescription opdId={opdData._id}/>
+                            <AddPrescription opdId={opdData._id} onAdd={dataChange} />
                             <Table responsive="sm" style={{ border: 1 }}>
                                 <thead>
                                     <tr>
@@ -114,14 +119,14 @@ function ViewOPD() {
                                 <tbody>
                                     {opdData.prescriptions.map((prescription, i) => {
 
-                                        return <tr key={ + i}>
+                                        return <tr key={+ i}>
                                             <td>{i + 1}</td>
                                             <td>{prescription.medicine.brandName}</td>
                                             <td>{prescription.dosage}</td>
                                             <td>{prescription.duration}</td>
-                                            <td> 
-                                            <EditPrescription  prescription ={prescription} />
-                                            <DeletePrescription id={prescription._id} name={prescription.medicine.brandName}/>
+                                            <td>
+                                                <EditPrescription prescription={prescription} onEdit={dataChange}/>
+                                                <DeletePrescription id={prescription._id} name={prescription.medicine.brandName} onDelete={dataChange}/>
                                             </td>
                                         </tr>
                                     })}
@@ -133,7 +138,7 @@ function ViewOPD() {
                             <p><strong>Allergy : </strong>{opdData.allergy}</p>
 
                             <Link to={"/incidents/view/" + opdData.incident._id} className="btn btn-secondary" style={{ marginBottom: 5 }}>Back to Incidents</Link>
-                            
+
                         </Card.Body>
                         : <Spinner animation="border" role="status">
                             <span className="visually-hidden">Loading...</span>

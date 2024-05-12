@@ -8,6 +8,7 @@ function DeletePrescription(props)
     const handleClose = () => setDeleteModalShow(false);
     const handleShow = () => setDeleteModalShow(true);
 
+    const{onDelete} = props
                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
     const [msg,setMsg] = useState(`Do you really want to Delete , ${props.name}' prescription ?`)
     
@@ -32,9 +33,10 @@ function DeletePrescription(props)
                 {
                     //alert(data.message)
                     setMsg(`${props.name}' prescription deleted!`)
+                    onDelete()
                     setTimeout(()=>{
                         handleClose()
-                    },2000)
+                    },100)
                 }
                 else
                 {
