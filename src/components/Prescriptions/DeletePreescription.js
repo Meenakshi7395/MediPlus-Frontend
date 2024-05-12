@@ -31,18 +31,14 @@ function DeletePrescription(props)
                if(data.success)
                 {
                     //alert(data.message)
-                    setMsg(`${props.name}'s prescription deleted successfully.`)
-
-                    // remove the deleted prescription from prescriptions on frontend
-                    props.onDelete(data.prescription)
-
+                    setMsg(`${props.name}' prescription deleted!`)
                     setTimeout(()=>{
                         handleClose()
                     },2000)
                 }
                 else
                 {
-                 setMsg("Prescripption could not be deleted!")
+                 setMsg("Incident could not be deleted!")
                 }
 
             }).catch(error=>{

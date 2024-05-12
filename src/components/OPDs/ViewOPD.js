@@ -1,14 +1,13 @@
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
-import { Card, Spinner } from 'react-bootstrap';
+import { Card, Spinner, Table } from 'react-bootstrap';
 import React, { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
 import Img from '../Images/logo.jpg';
-import Table from 'react-bootstrap/Table';
-import AddPrescription from './AddPrescription';
 import { Link } from 'react-router-dom';
-import DeletePrescription from './DeletePrescription';
-
+import AddPrescription from '../Prescriptions/AddPrescription';
+import DeletePrescription from '../Prescriptions/DeletePreescription';
+import EditPrescription from '../Prescriptions/EditPrescription';
 
 function ViewOPD() {
 
@@ -101,8 +100,34 @@ function ViewOPD() {
                             <p></p>
 
                             <br />
-                            <AddPrescription opdId={opdData._id} currentPrescriptions={opdData.prescriptions} />
+                            <AddPrescription opdId={opdData._id}/>
+                            <Table responsive="sm" style={{ border: 1 }}>
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Medicine</th>
+                                        <th>Dosage</th>
+                                        <th>Duration</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {opdData.prescriptions.map((prescription, i) => {
 
+                                        return <tr key={ + i}>
+                                            <td>{i + 1}</td>
+                                            <td>{prescription.medicine.brandName}</td>
+                                            <td>{prescription.dosage}</td>
+                                            <td>{prescription.duration}</td>
+                                            <td> 
+                                            <EditPrescription  prescription ={prescription} />
+                                            <DeletePrescription id={prescription._id} name={prescription.medicine.brandName}/>
+                                            </td>
+                                        </tr>
+                                    })}
+
+                                </tbody>
+                            </Table>
 
                             <p><strong>Advice : </strong>{opdData.advice}</p>
                             <p><strong>Allergy : </strong>{opdData.allergy}</p>

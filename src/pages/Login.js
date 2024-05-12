@@ -82,7 +82,7 @@ function Login(){
 // }
 
     return <>
-
+   
     <Row>
       <Col sm={6}></Col>
       <Col sm={5} style={{marginTop:80}}>
