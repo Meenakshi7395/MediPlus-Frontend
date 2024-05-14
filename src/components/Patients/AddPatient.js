@@ -5,6 +5,7 @@ import Button from 'react-bootstrap/Button';
 import {Alert,Card} from 'react-bootstrap';
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 function AddPatient(){
   
@@ -169,6 +170,7 @@ function AddPatient(){
       </Form.Group>
 
       <Button variant="success" type='submit' >Submit</Button>
+      <Link to="/patients" className="btn btn-secondary" style={{marginLeft:5}}>Back</Link>
         </Form>
         
       </Card.Body>

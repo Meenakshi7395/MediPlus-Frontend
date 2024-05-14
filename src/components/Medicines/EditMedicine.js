@@ -109,7 +109,7 @@ function EditMedicine(){
             console.log(data);
             if(data.success)
             {
-                setFormData(data.medicines)
+                setFormData(data.medicine)
             }
             else
             {
@@ -211,6 +211,7 @@ function EditMedicine(){
       
       
       <Button variant="success" type='submit'>Submit</Button>
+      <Link to="/medicines" className='btn btn-secondary' style={{marginLeft:5}}>Back</Link>
         </Form>
         
       </Card.Body>

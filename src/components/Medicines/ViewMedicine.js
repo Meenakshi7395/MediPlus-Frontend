@@ -41,7 +41,7 @@ function ViewMedicine(){
             console.log(data);
             if(data.success)
             {
-                setMedicineData(data.medicines)
+                setMedicineData(data.medicine)
             }
             else
             {

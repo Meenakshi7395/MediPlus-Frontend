@@ -4,7 +4,7 @@ import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import {Alert,Card} from 'react-bootstrap';
 import { useState } from 'react';
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function AddMedicine(){
   
@@ -174,6 +174,7 @@ function AddMedicine(){
       
       <p></p>
       <Button variant="success" type='submit'>Submit</Button>
+      <Link to="/medicines" className='btn btn-secondary' style={{marginLeft:5}}>Back</Link>
         </Form>
         
       </Card.Body>
