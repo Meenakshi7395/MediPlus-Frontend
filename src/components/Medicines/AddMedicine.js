@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button';
 import {Alert,Card} from 'react-bootstrap';
 import { useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
-
+import { medicineCategoryData } from '../PDF/Options';
 function AddMedicine(){
   
   const category=['Tablet','Capsule','Injection','Syrup','Drop','Ointmet']
@@ -135,8 +135,8 @@ function AddMedicine(){
                     Category :
                 </Form.Label>
                 <Form.Select aria-label="Default select example" name='category' onChange={handleChange}>
-                    {category.map((c)=>{
-                        return <option value={c}>{c}</option>
+                    {medicineCategoryData.map((c)=>{
+                        return <option value={c.abbr}>{c.description}</option>
                     })}
                 </Form.Select>
             </Form.Group>

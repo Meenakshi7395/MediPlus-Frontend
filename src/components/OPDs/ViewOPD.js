@@ -3,11 +3,12 @@ import Row from 'react-bootstrap/Row';
 import { Card, Spinner, Table } from 'react-bootstrap';
 import React, { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
-import Img from '../Images/logo.jpg';
+import Img from '../Images/logo.png';
 import { Link } from 'react-router-dom';
 import AddPrescription from '../Prescriptions/AddPrescription';
 import DeletePrescription from '../Prescriptions/DeletePreescription';
 import EditPrescription from '../Prescriptions/EditPrescription';
+import PdfGenerator from '../PDF/PdfGenerator';
 
 function ViewOPD() {
 
@@ -19,6 +20,7 @@ function ViewOPD() {
     const [isDataReady, setIsDataReady] = useState(false)
 
     const [isDataChange, setIsDataChange] =useState(0)
+    
 
     function dataChange(){
         setIsDataChange((isDataChange) => isDataChange + 1);
@@ -58,12 +60,12 @@ function ViewOPD() {
     useEffect(() => { getById() }, [isDataChange])
 
     return <>
-
-        <Row>
+            <Row>
             <Col sm={2}></Col>
             <Col sm={8} style={{ marginTop: 50 }}>
                 {/* <Link to={"/incidents/view/"+opdData.incident._id} className="btn btn-secondary" style={{marginBottom:5}}>Back to Incidents</Link> */}
-                <Card style={{ backgroundColor: '#F0FFFF' }}>
+                <PdfGenerator OPD={opdData}/>           
+                    <Card style={{ backgroundColor: '#F0FFFF' }}>
                     <Card.Header style={{ backgroundColor: "#C0C0C0", fontFamily: 'sans-serif' }}><strong>View OPD Detail</strong></Card.Header>
                     {isDataReady ?
                         <Card.Body>
@@ -138,7 +140,7 @@ function ViewOPD() {
                             <p><strong>Allergy : </strong>{opdData.allergy}</p>
 
                             <Link to={"/incidents/view/" + opdData.incident._id} className="btn btn-secondary" style={{ marginBottom: 5 }}>Back to Incidents</Link>
-
+                            
                         </Card.Body>
                         : <Spinner animation="border" role="status">
                             <span className="visually-hidden">Loading...</span>
@@ -149,6 +151,8 @@ function ViewOPD() {
         </Row>
 
     </>
+
+
 }
 
 export default ViewOPD;

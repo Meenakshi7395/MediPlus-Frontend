@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Modal, Button, Row, Col, Form, Alert, } from "react-bootstrap";
 import { useNavigate, Link } from "react-router-dom";
-
+import { frequencyData } from "../PDF/Options";
 function AddPrescription(props) {
     const [show, setShow] = useState(false);
 
@@ -165,7 +165,12 @@ function AddPrescription(props) {
                                 <Form.Label >
                                     <strong>Dosage :</strong>
                                 </Form.Label>
-                                <Form.Control type="text" name='dosage' value={formData.dosage} onChange={handleChange} />
+                                <Form.Select aria-label="Default select example" name='dosage' value={formData.dosage} onChange={handleChange} >
+                                    {frequencyData.map((d) => {
+                                        return <option value={d.abbr}>{d.abbr + " - " + d.description}</option>
+                                    })}
+                                </Form.Select>
+                               
                             </Form.Group>
                         </Col>
                         <Col>

@@ -17,11 +17,10 @@ import EditMedicine from './components/Medicines/EditMedicine';
 import AddIncident from './components/Incidents/AddIncident';
 import EditIncident from './components/Incidents/EditIncident';
 import ViewIncident from './components/Incidents/ViewIncident';
-import AddOPD from './components/OPDs/AddOPD';
-import AddVitals from './components/OPDs/AddVitals';
 import ViewOPD from './components/OPDs/ViewOPD';
-
+import React from 'react';
 // import Navigation from './components/layouts/Navigation';
+
 function App() {
   return (
     <Layout>
