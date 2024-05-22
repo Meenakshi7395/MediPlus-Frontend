@@ -10,7 +10,7 @@ import Img from '../components/Images/clinic.jpg';
 import { useContext } from 'react';
 import mediContext from '../context/mediplus/mediContext';
 function Login(){
-    const {onLogin} = useContext(mediContext)
+    const {onLogin}= useContext(mediContext)
 
     const[ formData,setFormData]=useState({
         email: '',

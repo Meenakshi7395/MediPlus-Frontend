@@ -4,13 +4,16 @@ import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
 import Table from 'react-bootstrap/Table';
 import { Button } from 'react-bootstrap';
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
 import DeletePatient from '../components/Patients/DeletePatient';
 import { useNavigate } from 'react-router-dom';
+import mediContext from '../context/mediplus/mediContext';
 
 
 function Patients(){
+
+    const {accessToken} = useContext(mediContext)
     
     const [patients,setPatients] = useState([])
 
@@ -21,12 +24,13 @@ function Patients(){
 
     const navigate = useNavigate();
 
+    const API_URL = process.env.REACT_APP_BACKEND_API
     function getAllPatients()   
     {
-        fetch("http://localhost:5000/patients",{
+        fetch(`${API_URL}/patients`,{
             method:'GET',
             headers:{
-                'Authorization': `Bearer ${localStorage.getItem("accessToken")}`,
+                'Authorization': `Bearer ${accessToken}`,
                 'Content-Type':'application/json',
                 
             },
@@ -58,7 +62,7 @@ function Patients(){
 
     useEffect(()=>{
          getAllPatients();
-    },[])
+    },[accessToken])
 
     return<>
         <Row style={{paddingTop:30}}> 

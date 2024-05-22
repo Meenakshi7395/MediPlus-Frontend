@@ -1,32 +1,38 @@
 import React, { useState} from "react";
 import mediContext from "./mediContext";
 
-
 const MediState =(props)=>{
   
-    const [user,setUser] = useState({})
-    const [accessToekn,setAccessToken] = useState("")
+    const [user,setUser] = useState(JSON.parse(localStorage.getItem('user')))
+    const [accessToken,setAccessToken] = useState(localStorage.getItem("accessToken"))
 
     function onLogin(user,token)
     {
-        setUser(user)
-        setAccessToken(accessToekn)
-        
-        localStorage.setItem("user",user)
-        localStorage.setItem("accessToke",token)
+        if(user!=undefined)
+        {
+            setUser(user)
+            localStorage.setItem("user",JSON.stringify(user))
+        }
+
+        if(token!=undefined)
+        {
+            setAccessToken(token)
+            localStorage.setItem("accessToken",token)
+        }
+       
     }
 
     function onLogout()
     {
         localStorage.removeItem("user")
         localStorage.removeItem("accessToken")
-        setUser({})
+        setUser(null)
         setAccessToken("")
     }
 
 
     return(
-        <mediContext.Provider value={{user,accessToekn,onLogin,onLogout}}>
+        <mediContext.Provider value={{user,accessToken,onLogin,onLogout}}>
             {props.children}
        </mediContext.Provider>
 
