@@ -88,7 +88,7 @@ function EditPatient(){
 
   .catch(error=>{
       console.error('Error: ',error);
-    
+      navigate('/')
   });
 
     }

@@ -1,14 +1,12 @@
 import React, { useState } from "react";
 import { Modal, Button, Row, Col, Form, Alert, } from "react-bootstrap";
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 function AddVitals(props) {
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-
-
 
     const [formData, setFormData] = useState({
         temp: '',
@@ -19,6 +17,8 @@ function AddVitals(props) {
 
     const [message, setMessage] = useState("")
     const [errors, setErrors] = useState([])
+
+    const navigate = useNavigate()
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -72,6 +72,7 @@ function AddVitals(props) {
 
             .catch(error => {
                 console.error('Error: ', error);
+                navigate('/')
             });
     }
 

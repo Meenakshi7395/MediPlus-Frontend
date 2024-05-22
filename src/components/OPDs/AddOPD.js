@@ -74,7 +74,8 @@ function AddOPD(props) {
             })
 
             .catch(error => {
-                console.error('Error: ', error);
+                console.error('Login Error: ', error);
+                navigate('/')
             });
     }
 

@@ -87,7 +87,8 @@ function EditMedicine(){
 })
 
   .catch(error=>{
-      console.error('Error: ',error);
+      console.error('Login Error: ',error);
+      navigate('/')
     
   });
 
@@ -97,6 +98,10 @@ function EditMedicine(){
     {
         fetch("http://localhost:5000/medicines/"+id,{
             method:'GET',
+            headers:{
+              'Authorization': `Bearer ${localStorage.getItem("accessToken")}`,
+              'Content-Type':'application/json',
+        },
                                                         
         }).then(response =>{
             if(!response.ok){
@@ -118,6 +123,7 @@ function EditMedicine(){
 
         }).catch(error=>{
             console.error('Login Error: ',error);
+            navigate('/')
         });
     }
 

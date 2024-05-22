@@ -2,7 +2,7 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Card from 'react-bootstrap/Card';
 import React, { useState,useEffect } from "react";
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import DeleteMedicine from '../Medicines/DeleteMedicine';
 
@@ -20,6 +20,8 @@ function ViewMedicine(){
         unitPrice:'',
         manufecturer:''
     })
+
+    const navigate = useNavigate()
   
     /// use this id to make api call to server to fetch the user
 
@@ -29,7 +31,9 @@ function ViewMedicine(){
             method:'GET',
             headers:{
                 'Authorization': `Bearer ${localStorage.getItem("accessToken")}`,
-            },                                            
+                'Content-Type':'application/json',
+    
+            },                                         
         }).then(response =>{
             if(!response.ok){
               throw new Error("Failed");
@@ -50,6 +54,7 @@ function ViewMedicine(){
 
         }).catch(error=>{
             console.error('Login Error: ',error);
+            navigate('/')
         });
     }
 

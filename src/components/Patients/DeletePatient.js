@@ -11,6 +11,8 @@ function DeletePatient(props)
                 method:'DELETE',
                 headers:{
                     'Authorization': `Bearer ${localStorage.getItem("accessToken")}`,
+                    'Content-Type':'application/json',
+        
                 },
                                                             
             }).then(response =>{

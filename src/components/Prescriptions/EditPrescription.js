@@ -37,6 +37,11 @@ function EditPrescription(props) {
     function getAllMedicines() {
         fetch("http://localhost:5000/medicines", {
             method: 'GET',
+            headers:{
+                'Authorization': `Bearer ${localStorage.getItem("accessToken")}`,
+                'Content-Type':'application/json',
+    
+            },
 
         }).then(response => {
             if (!response.ok) {
@@ -56,6 +61,7 @@ function EditPrescription(props) {
 
             }).catch(error => {
                 console.error('Login Error: ', error);
+                navigate('/')
             });
     }
 
@@ -116,7 +122,8 @@ function EditPrescription(props) {
             })
 
             .catch(error => {
-                console.error('Error: ', error);
+                console.error('Login Error: ', error);
+                navigate('/')
             });
     }
 

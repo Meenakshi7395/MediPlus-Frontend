@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Modal, Button, Row, Col, Form, Alert, } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 const status = ['New','Active','Hold','Closed'];
 
@@ -23,6 +24,8 @@ function AddDitails(props) {
         setFormData({ ...formData, [e.target.name]: e.target.value });
         console.log(formData);
     };
+
+    const navigate = useNavigate()
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -70,7 +73,8 @@ function AddDitails(props) {
             })
 
             .catch(error => {
-                console.error('Error: ', error);
+                console.error('Login Error: ', error);
+                navigate('/')
             });
     }
 

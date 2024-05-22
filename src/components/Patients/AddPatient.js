@@ -88,6 +88,7 @@ function AddPatient(){
 
   .catch(error=>{
       console.error('Error: ',error);
+      navigate("/")      //nevigate to the login page 
   });
 
     }

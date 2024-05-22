@@ -7,6 +7,7 @@ import { Button } from 'react-bootstrap';
 import React, { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
 import DeletePatient from '../components/Patients/DeletePatient';
+import { useNavigate } from 'react-router-dom';
 
 
 function Patients(){
@@ -18,10 +19,17 @@ function Patients(){
     const handleClose = () => setDeleteModalShow(false);
     const handleShow = () => setDeleteModalShow(true);
 
+    const navigate = useNavigate();
+
     function getAllPatients()   
     {
         fetch("http://localhost:5000/patients",{
             method:'GET',
+            headers:{
+                'Authorization': `Bearer ${localStorage.getItem("accessToken")}`,
+                'Content-Type':'application/json',
+                
+            },
                                                         
         }).then(response =>{
             if(!response.ok){
@@ -43,6 +51,8 @@ function Patients(){
 
         }).catch(error=>{
             console.error('Login Error: ',error);
+            navigate('/');
+            console.log("nevigate")
         });
     }
 

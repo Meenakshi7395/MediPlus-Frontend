@@ -3,7 +3,7 @@ import Row from 'react-bootstrap/Row';
 import Card from 'react-bootstrap/Card';
 import Table from 'react-bootstrap/Table';
 import React, { useState,useEffect } from "react";
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import AddOPD from '../OPDs/AddOPD';
 import AddVitals from '../OPDs/AddVitals';
@@ -25,6 +25,8 @@ function ViewIncident(){
       OPDs: []
     })
   
+    const navigate = useNavigate()
+
     /// use this id to make api call to server to fetch the incidents
 
     function getById()   
@@ -33,7 +35,9 @@ function ViewIncident(){
             method:'GET',
             headers:{
                 'Authorization': `Bearer ${localStorage.getItem("accessToken")}`,
-            },                                            
+                'Content-Type':'application/json',
+    
+            },                                         
         }).then(response =>{
             if(!response.ok){
               throw new Error("Failed");
@@ -54,6 +58,7 @@ function ViewIncident(){
 
         }).catch(error=>{
             console.error('Login Error: ',error);
+            navigate('/')
         });
     }
 

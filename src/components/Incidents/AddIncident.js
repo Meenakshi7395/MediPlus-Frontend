@@ -82,6 +82,7 @@ function AddIncident(){
 
   .catch(error=>{
       console.error('Error: ',error);
+      navigate('/')
   });
 
     }

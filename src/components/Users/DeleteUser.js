@@ -1,16 +1,20 @@
 import React, { useState } from "react";
 import { Modal,Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 function DeleteUser(props)
 {
     const [msg,setMsg] = useState(`Do you really want to Delete , ${props.name} record?`)
     
+    const navigate =useNavigate()
+
     function deleteUser()
     {
             fetch("http://localhost:5000/users/"+props.id,{
                 method:'DELETE',
                 headers:{
                     'Authorization': `Bearer ${localStorage.getItem("accessToken")}`,
+                    'Content-Type':'application/json',
                 },
                                                             
             }).then(response =>{
@@ -37,6 +41,7 @@ function DeleteUser(props)
 
             }).catch(error=>{
                 console.error('Login Error: ',error);
+                navigate('/')
             });
         }
 

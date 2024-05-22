@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Modal,Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 function DeletePrescription(props)
 {
@@ -11,6 +12,8 @@ function DeletePrescription(props)
     const{onDelete} = props
                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
     const [msg,setMsg] = useState(`Do you really want to Delete , ${props.name}' prescription ?`)
+
+    const navigate = useNavigate()
     
     function deletePrescription()
     {
@@ -18,8 +21,9 @@ function DeletePrescription(props)
                 method:'DELETE',
                 headers:{
                     'Authorization': `Bearer ${localStorage.getItem("accessToken")}`,
-                },
-                                                            
+                    'Content-Type':'application/json',
+        
+                },                                       
             }).then(response =>{
                 if(!response.ok){
                 throw new Error("Failed");
@@ -45,6 +49,7 @@ function DeletePrescription(props)
 
             }).catch(error=>{
                 console.error('Login Error: ',error);
+                navigate('/')
             });
         }
 

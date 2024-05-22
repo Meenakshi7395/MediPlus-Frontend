@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Modal,Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 function DeleteMedicine(props)
 {
@@ -10,12 +11,16 @@ function DeleteMedicine(props)
 
     const [msg,setMsg] = useState(`Do you really want to Delete , ${props.brandName} ?`)
     
+    const navigate = useNavigate()
+
     function deleteMedicine()
     {
             fetch("http://localhost:5000/medicines/"+props.id,{
                 method:'DELETE',
                 headers:{
                     'Authorization': `Bearer ${localStorage.getItem("accessToken")}`,
+                    'Content-Type':'application/json',
+        
                 },
                                                             
             }).then(response =>{
@@ -42,6 +47,7 @@ function DeleteMedicine(props)
 
             }).catch(error=>{
                 console.error('Login Error: ',error);
+                navigate('/')
             });
         }
 

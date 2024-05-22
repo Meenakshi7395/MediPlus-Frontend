@@ -7,7 +7,10 @@ import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import Img from '../components/Images/clinic.jpg';
 
+import { useContext } from 'react';
+import mediContext from '../context/mediplus/mediContext';
 function Login(){
+    const {onLogin} = useContext(mediContext)
 
     const[ formData,setFormData]=useState({
         email: '',
@@ -56,7 +59,8 @@ function Login(){
         setSubmitting(false);
 
         // now save accessToekn in local storage in order to access it in further reuquests to server
-        localStorage.setItem("accessToken",data.accessToken)
+        //localStorage.setItem("accessToken",data.accessToken)
+        onLogin(data.user,data.accessToken)
         
         //redirect notes page here
         navigate("/patients");
@@ -71,7 +75,6 @@ function Login(){
     });
     
 }
-
   return <>
     <Card className="bg-dark text-white">
       <Card.Img src={Img} alt="Card image" />
@@ -114,8 +117,14 @@ function Login(){
         </Row>
 
       </Card.ImgOverlay>
-    </Card>
+    </Card>  
     </>
 }
+//  const logout(){
+//   // Remove the access token from local storage
+//   localStorage.removeItem('accessToken');
+//    //redirect page here
+//   navigate("/");
+// }
 
 export default Login;

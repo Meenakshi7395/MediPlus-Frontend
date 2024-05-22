@@ -87,7 +87,7 @@ function AddUser(){
 
   .catch(error=>{
       console.error('Error: ',error);
-     // navigate("/login")
+      navigate("/")
   
      
   });

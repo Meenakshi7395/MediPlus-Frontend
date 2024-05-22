@@ -4,11 +4,11 @@ import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
-
+import { useNavigate } from 'react-router-dom';
 import React, { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
 import DeleteUser from '../components/Users/DeleteUser';
-
+  
 
 function Users(){
     
@@ -19,6 +19,7 @@ function Users(){
     const handleClose = () => setDeleteModalShow(false);
     const handleShow = () => setDeleteModalShow(true);
 
+    const navigate = useNavigate()
 
     function getAllUsers()   
     {
@@ -26,6 +27,8 @@ function Users(){
             method:'GET',
             headers:{
                 'Authorization': `Bearer ${localStorage.getItem("accessToken")}`,
+                'Content-Type':'application/json',
+
             },
                                                         
         }).then(response =>{
@@ -48,6 +51,7 @@ function Users(){
 
         }).catch(error=>{
             console.error('Login Error: ',error);
+            navigate('/')
         });
     }
 

@@ -87,7 +87,7 @@ function EditUser(){
 
   .catch(error=>{
       console.error('Error: ',error);
-     // navigate("/login")
+     navigate("/")
   
      
   });
@@ -100,6 +100,7 @@ function EditUser(){
             method:'GET',
             headers:{
                 'Authorization': `Bearer ${localStorage.getItem("accessToken")}`,
+                'Content-Type':'application/json',
             },
                                                         
         }).then(response =>{
@@ -122,6 +123,7 @@ function EditUser(){
 
         }).catch(error=>{
             console.error('Login Error: ',error);
+            navigate('/')
         });
     }
 

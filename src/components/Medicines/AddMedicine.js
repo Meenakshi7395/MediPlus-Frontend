@@ -84,7 +84,8 @@ function AddMedicine(){
 })
 
   .catch(error=>{
-      console.error('Error: ',error);
+      console.error('Login Error: ',error);
+      navigate('/')
   });
 
     }

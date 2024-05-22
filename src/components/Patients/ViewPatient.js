@@ -5,6 +5,7 @@ import Table from 'react-bootstrap/Table';
 import React, { useState,useEffect } from "react";
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import DeleteIncident from '../Incidents/DeleteIncidents';
 
 function ViewPatient(){
@@ -12,6 +13,7 @@ function ViewPatient(){
     /// read the id from path parameter of the url ===> /patients/view/:id
     const {id} = useParams(); // Access the parameters of url
 
+    const navigate = useNavigate();
     const [patientData,setPatientData] = useState({
         name: '',
         age:'',  
@@ -51,6 +53,7 @@ function ViewPatient(){
 
         }).catch(error=>{
             console.error('Login Error: ',error);
+            navigate('/')
         });
     }
 

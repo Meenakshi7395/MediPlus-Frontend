@@ -88,6 +88,11 @@ function EditIncident(){
     {
         fetch("http://localhost:5000/incidents/"+id,{
             method:'GET',
+            headers:{
+              'Authorization': `Bearer ${localStorage.getItem("accessToken")}`,
+              'Content-Type':'application/json',
+  
+          },
                                                         
         }).then(response =>{
             if(!response.ok){
@@ -109,6 +114,7 @@ function EditIncident(){
 
         }).catch(error=>{
             console.error('Login Error: ',error);
+            navigate('/')
         });
     }
 

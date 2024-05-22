@@ -2,7 +2,7 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import { Card, Spinner, Table } from 'react-bootstrap';
 import React, { useState, useEffect } from "react";
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Img from '../Images/logo.png';
 import { Link } from 'react-router-dom';
 import AddPrescription from '../Prescriptions/AddPrescription';
@@ -21,6 +21,7 @@ function ViewOPD() {
 
     const [isDataChange, setIsDataChange] =useState(0)
     
+    const navigate = useNavigate()
 
     function dataChange(){
         setIsDataChange((isDataChange) => isDataChange + 1);
@@ -30,8 +31,10 @@ function ViewOPD() {
     function getById() {
         fetch("http://localhost:5000/OPDs/" + id, {
             method: 'GET',
-            headers: {
+            headers:{
                 'Authorization': `Bearer ${localStorage.getItem("accessToken")}`,
+                'Content-Type':'application/json',
+    
             },
         }).then(response => {
             if (!response.ok) {
@@ -52,6 +55,7 @@ function ViewOPD() {
 
             }).catch(error => {
                 console.error('Login Error: ', error);
+                navigate('/')
             });
     }
 

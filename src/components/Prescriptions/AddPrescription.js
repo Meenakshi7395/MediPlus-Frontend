@@ -27,6 +27,11 @@ function AddPrescription(props) {
     function getAllMedicines() {
         fetch("http://localhost:5000/medicines", {
             method: 'GET',
+            headers:{
+                'Authorization': `Bearer ${localStorage.getItem("accessToken")}`,
+                'Content-Type':'application/json',
+    
+            },
 
         }).then(response => {
             if (!response.ok) {
@@ -46,6 +51,7 @@ function AddPrescription(props) {
 
             }).catch(error => {
                 console.error('Login Error: ', error);
+                navigate('/')
             });
     }
 
@@ -118,6 +124,7 @@ function AddPrescription(props) {
 
         .catch (error => {
             console.error('Error: ', error);
+            navigate('/')
         });
 
     }

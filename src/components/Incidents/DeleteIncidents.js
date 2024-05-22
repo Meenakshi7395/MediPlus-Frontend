@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Modal,Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 function DeleteIncident(props)
 {
@@ -8,7 +9,8 @@ function DeleteIncident(props)
     const handleClose = () => setDeleteModalShow(false);
     const handleShow = () => setDeleteModalShow(true);
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+    const navigate=useNavigate()
+
     const [msg,setMsg] = useState(`Do you really want to Delete , ${props.name}' incident, created on, ${props.date}, whose currrent status is, ${props.status}?`)
     
     function deleteIncident()
@@ -17,8 +19,9 @@ function DeleteIncident(props)
                 method:'DELETE',
                 headers:{
                     'Authorization': `Bearer ${localStorage.getItem("accessToken")}`,
-                },
-                                                            
+                    'Content-Type':'application/json',
+        
+                },                                        
             }).then(response =>{
                 if(!response.ok){
                 throw new Error("Failed");
@@ -43,6 +46,7 @@ function DeleteIncident(props)
 
             }).catch(error=>{
                 console.error('Login Error: ',error);
+                navigate('/')
             });
         }
 

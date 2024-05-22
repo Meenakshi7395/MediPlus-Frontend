@@ -7,6 +7,7 @@ import { Button } from 'react-bootstrap';
 import React, { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
 import DeleteMedicine from '../components/Medicines/DeleteMedicine';
+import { useNavigate } from 'react-router-dom';
 
 function Medicines(){
     
@@ -17,10 +18,16 @@ function Medicines(){
     // const handleClose = () => setDeleteModalShow(false);
     // const handleShow = () => setDeleteModalShow(true);
 
+    const navigate = useNavigate();
+
     function getAllMedicines()   
     {
         fetch("http://localhost:5000/medicines",{
             method:'GET',
+            headers:{
+                'Authorization': `Bearer ${localStorage.getItem("accessToken")}`,
+                'Content-Type':'application/json',
+            },
                                                         
         }).then(response =>{
             if(!response.ok){
@@ -42,6 +49,7 @@ function Medicines(){
 
         }).catch(error=>{
             console.error('Login Error: ',error);
+            navigate('/')
         });
     }
 

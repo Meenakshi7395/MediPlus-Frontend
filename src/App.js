@@ -19,10 +19,14 @@ import EditIncident from './components/Incidents/EditIncident';
 import ViewIncident from './components/Incidents/ViewIncident';
 import ViewOPD from './components/OPDs/ViewOPD';
 import React from 'react';
-// import Navigation from './components/layouts/Navigation';
+import MediState from './context/mediplus/MediState';
+import Logout from './components/Logout';
+import Navigation from './components/layouts/Navigation';
 
 function App() {
   return (
+// MediState rap all the files in all components 
+   <MediState>        
     <Layout>
       <Routes>
         {/* users all routes */}
@@ -53,9 +57,11 @@ function App() {
         
        {/* for all opds */}
        <Route path="/OPDs/view/:id" element={<ViewOPD/>}></Route>
+       <Route path="/logout" element={<Logout/>}></Route>
        
       </Routes>
     </Layout>
+    </MediState>
   );
 }
 
