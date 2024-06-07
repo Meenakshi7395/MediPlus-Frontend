@@ -3,10 +3,12 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import {Alert,Card} from 'react-bootstrap';
-import { useState ,useEffect} from 'react';
+import { useState ,useEffect,useContext} from 'react';
 import { useNavigate } from "react-router-dom";
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import mediContext from '../../context/mediplus/mediContext';
+
 
 const category=[
   "one","two","three"
@@ -14,6 +16,7 @@ const category=[
 function EditMedicine(){
     const { id } = useParams();
 
+    const {accessToken} = useContext(mediContext)
   const[formData,setFormData]=useState({
     brandName: '',
     chemicalName:'',  
@@ -28,6 +31,9 @@ function EditMedicine(){
 
   const navigate = useNavigate()
 
+  const API_URL = process.env.REACT_APP_BACKEND_API
+
+
   const handleChange=(e) =>{
       setFormData({...formData,[e.target.name]:e.target.value});
      // console.log(formData);
@@ -37,10 +43,10 @@ function EditMedicine(){
       e.preventDefault();
       console.log(formData);
 
-      fetch("http://localhost:5000/medicines/"+id,{
+      fetch(`${API_URL}/medicines/`+id,{
           method:'PATCH',
           headers:{
-            'Authorization': `Bearer ${localStorage.getItem("accessToken")}`,
+            'Authorization': `Bearer ${accessToken}`,
             'Content-Type':'application/json',
 
         },
@@ -96,7 +102,7 @@ function EditMedicine(){
 
     function getById()   
     {
-        fetch("http://localhost:5000/medicines/"+id,{
+        fetch(`${API_URL}/medicines/`+id,{
             method:'GET',
             headers:{
               'Authorization': `Bearer ${localStorage.getItem("accessToken")}`,

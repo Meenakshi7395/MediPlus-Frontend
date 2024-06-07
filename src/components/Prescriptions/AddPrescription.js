@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useContext } from "react";
 import { Modal, Button, Row, Col, Form, Alert, } from "react-bootstrap";
 import { useNavigate, Link } from "react-router-dom";
 import { frequencyData } from "../PDF/Options";
+import mediContext from "../../context/mediplus/mediContext";
 function AddPrescription(props) {
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-
+    const {accessToken} = useContext(mediContext)
     const [formData, setFormData] = useState({
         opd: props.opdId,
         medicine: '',
@@ -23,12 +24,13 @@ function AddPrescription(props) {
     const [medicines, setMedicines] = useState([])
 
     const navigate = useNavigate()
+    const API_URL = process.env.REACT_APP_BACKEND_API
 
     function getAllMedicines() {
-        fetch("http://localhost:5000/medicines", {
+        fetch(`${API_URL}/medicines`, {
             method: 'GET',
             headers:{
-                'Authorization': `Bearer ${localStorage.getItem("accessToken")}`,
+                'Authorization': `Bearer ${accessToken}`,
                 'Content-Type':'application/json',
     
             },
@@ -72,10 +74,10 @@ function AddPrescription(props) {
         formData['opd'] = props.opdId
         console.log(formData);
 
-        fetch("http://localhost:5000/prescriptions", {
+        fetch(`${API_URL}/prescriptions`, {
             method: 'POST',
             headers: {
-                'Authorization': `Bearer ${localStorage.getItem("accessToken")}`,
+                'Authorization': `Bearer ${accessToken}`,
                 'Content-Type': 'application/json',
 
             },

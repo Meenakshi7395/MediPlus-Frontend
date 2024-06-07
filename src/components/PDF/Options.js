@@ -36,4 +36,13 @@ const frequencyData = [
     { abbr: "AER", description: "Aerosol" }
   ]
 
-export {frequencyData,medicineCategoryData}
+  const doctors = [
+    { doctor: "Dr. Himanshu",title:"Physician",degree:"MBBS, M.D.",department:"General Medicine"},
+    { doctor: "Dr. Rahul Sharma",title:"Neurologist",degree:"MBBS, M.D.",department:"General Medicine"},
+    { doctor: "Dr. Meenakshi",title:"Cardiologist",degree:"MBBS, M.D.",department:"General Medicine"},
+    { doctor: "Dr. Rohan Gupta",title:"Orthopedic",degree:"MBBS, M.D.",department:"General Medicine"},
+    { doctor: "Dr. Reeta Sharma",title:"ENT",degree:"MBBS, M.D.",department:"General Medicine"}
+    
+  ]
+
+export {frequencyData,medicineCategoryData,doctors}

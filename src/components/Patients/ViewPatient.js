@@ -2,17 +2,18 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Card from 'react-bootstrap/Card';
 import Table from 'react-bootstrap/Table';
-import React, { useState,useEffect } from "react";
+import React, { useState,useEffect,useContext } from "react";
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import DeleteIncident from '../Incidents/DeleteIncidents';
+import mediContext from '../../context/mediplus/mediContext';
 
 function ViewPatient(){
 
     /// read the id from path parameter of the url ===> /patients/view/:id
     const {id} = useParams(); // Access the parameters of url
-
+    const {accessToken }= useContext(mediContext)
     const navigate = useNavigate();
     const [patientData,setPatientData] = useState({
         name: '',
@@ -25,13 +26,14 @@ function ViewPatient(){
     })
   
     /// use this id to make api call to server to fetch the user
+    const API_URL = process.env.REACT_APP_BACKEND_API
 
     function getById()   
     {
-        fetch("http://localhost:5000/patients/"+id,{
+        fetch(`${API_URL}/patients/`+id,{
             method:'GET',
             headers:{
-                'Authorization': `Bearer ${localStorage.getItem("accessToken")}`,
+                'Authorization': `Bearer ${accessToken}`,
             },                                            
         }).then(response =>{
             if(!response.ok){

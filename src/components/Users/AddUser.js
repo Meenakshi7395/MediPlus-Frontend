@@ -3,14 +3,13 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import {Alert,Card} from 'react-bootstrap';
-import { useState } from 'react';
+import { useState,useContext } from 'react';
 import { useNavigate } from "react-router-dom";
+import mediContext from '../../context/mediplus/mediContext';
 
 function AddUser(){
   
-  const roles=[
-    "admin","maneger","staff"
-  ]
+  const roles = ['admin','manager','staff','user'];
 
   const[formData,setFormData]=useState({
       name: '',
@@ -23,20 +22,20 @@ function AddUser(){
 
   const [message,setMessage] = useState("")
   const [errors,setErrors] = useState([])
-
+  const {accessToken} = useContext(mediContext)
  const navigate = useNavigate()
 
   const handleChange=(e) =>{
       setFormData({...formData,[e.target.name]:e.target.value});
       console.log(formData);
   };
+  const API_URL = process.env.REACT_APP_BACKEND_API
 
   function handleSubmit(e){
       e.preventDefault();
       console.log("Hello");
-      const accessToken = localStorage.getItem("accessToken")
 
-      fetch("http://localhost:5000/users",{
+      fetch(`${API_URL}/users`,{
           method:'POST',
           headers:{
               'Authorization': `Bearer ${accessToken}`,
@@ -98,7 +97,7 @@ function AddUser(){
       <Col sm={2}></Col>
       <Col sm={8} style={{marginTop:50}}>
 
-     {message =="" ? <></> : <>
+     {message ==="" ? <></> : <>
       <Alert variant= {errors.length>0 ?"danger" :"success" }>
           {message}
          <ul>
@@ -139,7 +138,6 @@ function AddUser(){
         <Form.Control type="password" name='password' placeholder="Password" onChange={handleChange} />
         </Col>
       </Form.Group>
-
 
       <Form.Group as={Row} className="mb-3" >
         <Form.Label column sm="3">

@@ -3,17 +3,17 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import {Alert,Card} from 'react-bootstrap';
-import { useState } from 'react';
+import { useState,useContext } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import { medicineCategoryData } from '../PDF/Options';
+import mediContext from '../../context/mediplus/mediContext';
 function AddMedicine(){
-  
-  const category=['Tablet','Capsule','Injection','Syrup','Drop','Ointmet']
 
+  const {accessToken} = useContext(mediContext)
   const[formData,setFormData]=useState({
       brandName: '',
       chemicalName:'',  
-      category:'Tablet',
+      category:'TAB',
       description:'',
       unitPrice:'',
       manufecturer:''
@@ -29,16 +29,18 @@ function AddMedicine(){
       console.log(formData);
   };
 
+  const API_URL = process.env.REACT_APP_BACKEND_API
+
   function handleSubmit(e){
       e.preventDefault();
       console.log("Hello");
 
       console.log(formData);
 
-      fetch("http://localhost:5000/medicines",{
+      fetch(`${API_URL}/medicines`,{
           method:'POST',
           headers:{
-            'Authorization': `Bearer ${localStorage.getItem("accessToken")}`,
+            'Authorization': `Bearer ${accessToken}`,
             'Content-Type':'application/json',
 
         },
@@ -94,7 +96,7 @@ function AddMedicine(){
       <Col sm={2}></Col>
       <Col sm={8} style={{marginTop:50}}>
 
-     {message =="" ? <></> : <>
+     {message ==="" ? <></> : <>
       <Alert variant= {errors.length>0 ?"danger" :"success" }>
           {message}
          <ul>

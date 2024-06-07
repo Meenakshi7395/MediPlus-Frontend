@@ -1,10 +1,10 @@
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Card from 'react-bootstrap/Card';
-import React, { useState,useEffect } from "react";
+import React, { useState,useEffect,useContext } from "react";
 import { useNavigate, useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-
+import mediContext from '../../context/mediplus/mediContext';
 
 function ViewUser(){
 
@@ -22,13 +22,15 @@ function ViewUser(){
   
     const navigate=useNavigate()
     /// use this id to make api call to server to fetch the user
+    const {accessToken} = useContext(mediContext)
+    const API_URL = process.env.REACT_APP_BACKEND_API
 
     function getById()   
     {
-        fetch("http://localhost:5000/users/"+id,{
+        fetch(`${API_URL}/users/`+id,{
             method:'GET',
             headers:{
-                'Authorization': `Bearer ${localStorage.getItem("accessToken")}`,
+                'Authorization': `Bearer ${accessToken}`,
                 'Content-Type':'application/json',
             },
                                                         

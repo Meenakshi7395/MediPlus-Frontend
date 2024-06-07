@@ -3,16 +3,17 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import {Alert,Card} from 'react-bootstrap';
-import { useState ,useEffect} from 'react';
+import { useState ,useEffect,useContext} from 'react';
 import { useNavigate } from "react-router-dom";
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import mediContext from '../../context/mediplus/mediContext';
 
 const status = ['Open','Closed','Hold'];
 
 function EditIncident(){
     const {id } = useParams();
-
+   const {accessToken} = useContext(mediContext)
   const[formData,setFormData]=useState({
     patient:'',
     date :'', 
@@ -32,14 +33,16 @@ function EditIncident(){
      // console.log(formData);
   };
 
+  const API_URL = process.env.REACT_APP_BACKEND_API
+
   function handleSubmit(e){
       e.preventDefault();
       console.log(formData);
-
-      fetch("http://localhost:5000/incidents/"+id,{
+      
+    fetch(`${API_URL}/incidents/`+id,{
           method:'PATCH',
           headers:{
-            'Authorization': `Bearer ${localStorage.getItem("accessToken")}`,
+            'Authorization': `Bearer ${accessToken}`,
             'Content-Type':'application/json',
 
         },
@@ -86,10 +89,10 @@ function EditIncident(){
 
     function getById()   
     {
-        fetch("http://localhost:5000/incidents/"+id,{
+        fetch(`${API_URL}/incidents/`+id,{
             method:'GET',
             headers:{
-              'Authorization': `Bearer ${localStorage.getItem("accessToken")}`,
+              'Authorization': `Bearer ${accessToken}`,
               'Content-Type':'application/json',
   
           },

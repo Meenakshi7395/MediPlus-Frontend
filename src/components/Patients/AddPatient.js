@@ -3,12 +3,15 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import {Alert,Card} from 'react-bootstrap';
-import { useState } from 'react';
+import { useState,useContext } from 'react';
 import { useNavigate } from "react-router-dom";
 import { Link } from 'react-router-dom';
+import mediContext from '../../context/mediplus/mediContext';
+
 
 function AddPatient(){
   
+  const {accessToken }= useContext(mediContext)
   const gender=[
     "male","female"
   ]
@@ -16,7 +19,7 @@ function AddPatient(){
   const[formData,setFormData]=useState({
       name: '',
       age:'',  
-      gender:'',
+      gender:'male',
       mobile:'',
       address:'',
       careTaker:''
@@ -31,6 +34,8 @@ function AddPatient(){
       setFormData({...formData,[e.target.name]:e.target.value});
       console.log(formData);
   };
+  const API_URL = process.env.REACT_APP_BACKEND_API
+
 
   function handleSubmit(e){
       e.preventDefault();
@@ -38,10 +43,10 @@ function AddPatient(){
 
       console.log(formData);
 
-      fetch("http://localhost:5000/patients",{
+      fetch(`${API_URL}/patients`,{
           method:'POST',
           headers:{
-            'Authorization': `Bearer ${localStorage.getItem("accessToken")}`,
+            'Authorization': `Bearer ${accessToken}`,
             'Content-Type':'application/json',
 
         },

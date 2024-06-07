@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useState,useContext } from "react";
 import { Modal,Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-
+import mediContext from "../../context/mediplus/mediContext";
 function DeleteMedicine(props)
 {
     const [deleteModalShow, setDeleteModalShow] = useState(false);
-
+    const {accessToken} = useContext(mediContext)
     const handleClose = () => setDeleteModalShow(false);
     const handleShow = () => setDeleteModalShow(true);
 
@@ -13,12 +13,14 @@ function DeleteMedicine(props)
     
     const navigate = useNavigate()
 
+    const API_URL = process.env.REACT_APP_BACKEND_API
+
     function deleteMedicine()
     {
-            fetch("http://localhost:5000/medicines/"+props.id,{
+            fetch(`${API_URL}/medicines/`+props.id,{
                 method:'DELETE',
                 headers:{
-                    'Authorization': `Bearer ${localStorage.getItem("accessToken")}`,
+                    'Authorization': `Bearer ${accessToken}`,
                     'Content-Type':'application/json',
         
                 },

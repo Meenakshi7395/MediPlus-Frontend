@@ -9,7 +9,9 @@ import AddPrescription from '../Prescriptions/AddPrescription';
 import DeletePrescription from '../Prescriptions/DeletePreescription';
 import EditPrescription from '../Prescriptions/EditPrescription';
 import PdfGenerator from '../PDF/PdfGenerator';
-
+import { useContext } from 'react';
+import mediContext from '../../context/mediplus/mediContext';
+import { doctors } from '../PDF/Options';
 function ViewOPD() {
 
     /// read the id from query parameter of the url 
@@ -20,8 +22,12 @@ function ViewOPD() {
     const [isDataReady, setIsDataReady] = useState(false)
 
     const [isDataChange, setIsDataChange] =useState(0)
+
+    const [doctorInfo,setDoctorInfo] = useState({})
     
+    const {accessToken }= useContext(mediContext)
     const navigate = useNavigate()
+    const API_URL = process.env.REACT_APP_BACKEND_API
 
     function dataChange(){
         setIsDataChange((isDataChange) => isDataChange + 1);
@@ -29,10 +35,10 @@ function ViewOPD() {
 
     /// use this id to make api call to server to fetch the incidents
     function getById() {
-        fetch("http://localhost:5000/OPDs/" + id, {
+        fetch(`${API_URL}/OPDs/` + id, {
             method: 'GET',
             headers:{
-                'Authorization': `Bearer ${localStorage.getItem("accessToken")}`,
+                'Authorization': `Bearer ${accessToken}`,
                 'Content-Type':'application/json',
     
             },
@@ -47,6 +53,15 @@ function ViewOPD() {
                 console.log(data);
                 if (data.success) {
                     setopdData(data.opd)
+
+                    // search the doctor in the doctors JSON stored in frontend
+                    // const doctorInfo = doctors.filter()
+                   
+                     doctorInfo = doctors.filter(item =>
+                        item.doctor === opdData.doctor );
+                    console.log(doctorInfo);
+                    
+
                     setIsDataReady(true)
                 }
                 else {

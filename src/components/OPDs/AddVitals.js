@@ -1,13 +1,13 @@
-import React, { useState } from "react";
+import React, { useState,useContext} from "react";
 import { Modal, Button, Row, Col, Form, Alert, } from "react-bootstrap";
 import { useNavigate, useParams } from 'react-router-dom';
-
+import mediContext from "../../context/mediplus/mediContext";
 function AddVitals(props) {
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-
+     const{ accessToken} = useContext(mediContext)
     const [formData, setFormData] = useState({
         temp: '',
         bp: '',
@@ -24,6 +24,8 @@ function AddVitals(props) {
         setFormData({ ...formData, [e.target.name]: e.target.value });
         console.log(formData);
     };
+    const API_URL = process.env.REACT_APP_BACKEND_API
+
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -31,10 +33,10 @@ function AddVitals(props) {
 
         console.log(formData);
 
-        fetch("http://localhost:5000/OPDs/" + props.opdId, {
+        fetch(`${API_URL}/OPDs/` + props.opdId, {
             method: 'PATCH',
             headers: {
-                'Authorization': `Bearer ${localStorage.getItem("accessToken")}`,
+                'Authorization': `Bearer ${accessToken}`,
                 'Content-Type': 'application/json',
 
             },
@@ -53,7 +55,7 @@ function AddVitals(props) {
 
                 if (data.success) {
                     setErrors([])
-                    setMessage("OPD data added suucefully");
+                    setMessage("Vitals added suucefully");
 
                     //redirect View incidents page here
                     setTimeout(() => {
@@ -103,7 +105,7 @@ function AddVitals(props) {
                         <Col>
                             <Form.Group>
                                 <Form.Label >
-                                    <strong>Temp. :</strong>
+                                    <strong>Temprature :</strong>
                                 </Form.Label>
                                 <Form.Control type="number" name='temp' placeholder="Temprature" onChange={handleChange} />
                             </Form.Group>
@@ -111,7 +113,7 @@ function AddVitals(props) {
                         <Col>
                             <Form.Group>
                                 <Form.Label >
-                                    <strong>B.P. :</strong>
+                                    <strong>Blood Pressure :</strong>
                                 </Form.Label>
                                 <Form.Control type="number" name='bp' placeholder="Blood Pressure" onChange={handleChange} />
                             </Form.Group>

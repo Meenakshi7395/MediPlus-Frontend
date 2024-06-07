@@ -2,12 +2,13 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Card from 'react-bootstrap/Card';
 import Table from 'react-bootstrap/Table';
-import React, { useState,useEffect } from "react";
+import React, { useState,useEffect,useContext } from "react";
 import { useNavigate, useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import AddOPD from '../OPDs/AddOPD';
 import AddVitals from '../OPDs/AddVitals';
 import AddDitails from '../OPDs/AddDetails';
+import mediContext from '../../context/mediplus/mediContext';
 
 
 function ViewIncident(){
@@ -27,14 +28,17 @@ function ViewIncident(){
   
     const navigate = useNavigate()
 
+    const{ accessToken} = useContext(mediContext)
     /// use this id to make api call to server to fetch the incidents
+
+    const API_URL = process.env.REACT_APP_BACKEND_API
 
     function getById()   
     {
-        fetch("http://localhost:5000/incidents/"+id,{
+        fetch(`${API_URL}/incidents/`+id,{
             method:'GET',
             headers:{
-                'Authorization': `Bearer ${localStorage.getItem("accessToken")}`,
+                'Authorization': `Bearer ${accessToken}`,
                 'Content-Type':'application/json',
     
             },                                         

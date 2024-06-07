@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useState,useContext} from "react";
 import { Modal, Button,Row,Col,Form,Alert, } from "react-bootstrap";
-import { useNavigate,Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import mediContext from "../../context/mediplus/mediContext";
+import { doctors } from '../PDF/Options';
 function AddOPD(props) {
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-
+    const {accessToken} = useContext(mediContext)
     const [formData, setFormData] = useState({
         incident: props.incidentId,
         date: '',
@@ -25,6 +27,9 @@ function AddOPD(props) {
         console.log(formData);
     };
 
+    const API_URL = process.env.REACT_APP_BACKEND_API
+
+
     function handleSubmit(e) {
         e.preventDefault();
         console.log("Hello");
@@ -32,10 +37,10 @@ function AddOPD(props) {
         formData['incident'] = props.incidentId
         console.log(formData);
 
-        fetch("http://localhost:5000/OPDs", {
+        fetch(`${API_URL}/OPDs`, {
             method: 'POST',
             headers: {
-                'Authorization': `Bearer ${localStorage.getItem("accessToken")}`,
+                'Authorization': `Bearer ${accessToken}`,
                 'Content-Type': 'application/json',
 
             },
@@ -78,6 +83,7 @@ function AddOPD(props) {
                 navigate('/')
             });
     }
+   
 
 
         return <>
@@ -89,7 +95,7 @@ function AddOPD(props) {
                 <Modal.Body>
                     <Row>
                         
-                        {message =="" ? <></> : <>
+                        {message ==="" ? <></> : <>
                         <Alert variant= {errors.length>0 ?"danger" :"success" }>
                             {message}
                             <ul>
@@ -113,11 +119,15 @@ function AddOPD(props) {
                             </Col>
 
                             <Col>
-                                <Form.Group>
-                                    <Form.Label >
-                                        <strong>Doctor :</strong>
+                                <Form.Group >
+                                    <Form.Label>
+                                        Doctor :
                                     </Form.Label>
-                                    <Form.Control type="text" name='doctor' placeholder="Doctor" onChange={handleChange} />
+                                    <Form.Select aria-label="Default select example" name='doctor' onChange={handleChange}>
+                                        {doctors.map((c) => {
+                                            return <option value={c.doctor}>{c.doctor}</option>
+                                        })}
+                                    </Form.Select>
                                 </Form.Group>
                             </Col>
                         </Row>

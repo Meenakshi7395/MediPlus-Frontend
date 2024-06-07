@@ -62,7 +62,7 @@ function Patients(){
 
     useEffect(()=>{
          getAllPatients();
-    },[accessToken])
+    },[])
 
     return<>
         <Row style={{paddingTop:30}}> 

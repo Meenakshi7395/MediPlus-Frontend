@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState,useContext } from "react";
 import { Modal,Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import mediContext from "../../context/mediplus/mediContext";
 
 function DeleteIncident(props)
 {
+
     const [deleteModalShow, setDeleteModalShow] = useState(false);
 
     const handleClose = () => setDeleteModalShow(false);
@@ -13,12 +15,16 @@ function DeleteIncident(props)
 
     const [msg,setMsg] = useState(`Do you really want to Delete , ${props.name}' incident, created on, ${props.date}, whose currrent status is, ${props.status}?`)
     
+    const API_URL = process.env.REACT_APP_BACKEND_API
+
+    const {accessToken} = useContext(mediContext)
+
     function deleteIncident()
     {
-            fetch("http://localhost:5000/incidents/"+props.id,{
+            fetch(`${API_URL}/incidents/`+props.id,{
                 method:'DELETE',
                 headers:{
-                    'Authorization': `Bearer ${localStorage.getItem("accessToken")}`,
+                    'Authorization': `Bearer ${accessToken}`,
                     'Content-Type':'application/json',
         
                 },                                        

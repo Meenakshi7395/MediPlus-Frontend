@@ -6,8 +6,11 @@ import {Alert,Card} from 'react-bootstrap';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useNavigate,Link } from "react-router-dom";
+import { useContext } from 'react';
+import mediContext from '../../context/mediplus/mediContext';
+import { doctors } from '../PDF/Options';
 
-const status = ['Open','Closed','Hold'];
+const status = ['New','Active','Closed','Hold'];
 
 function AddIncident(){
 
@@ -15,13 +18,15 @@ function AddIncident(){
   console.log(patientName)
   //const [patientName, setPatientName] = useState(patient_name)
 
+  const {accessToken} = useContext(mediContext)
+
   const[formData,setFormData]=useState({
       patient: patientId,
       date :'', 
       diagnosis :'',
       chiefComplaint :'',
-      doctor:'',
-      status:''
+      doctor:'Dr.Himanshu',
+      status:'New'
   });
 
   const [message,setMessage] = useState("")
@@ -40,10 +45,12 @@ function AddIncident(){
 
       console.log(formData);
 
-      fetch("http://localhost:5000/incidents",{
+      const API_URL = process.env.REACT_APP_BACKEND_API
+
+      fetch(`${API_URL}/incidents`,{
           method:'POST',
           headers:{
-            'Authorization': `Bearer ${localStorage.getItem("accessToken")}`,
+            'Authorization': `Bearer ${accessToken}`,
             'Content-Type':'application/json',
 
         },
@@ -91,7 +98,7 @@ function AddIncident(){
       <Col sm={2}></Col>
       <Col sm={8} style={{marginTop:50}}>
 
-     {message =="" ? <></> : <>
+     {message ==="" ? <></> : <>
       <Alert variant= {errors.length>0 ?"danger" :"success" }>
           {message}
          <ul>
@@ -122,7 +129,8 @@ function AddIncident(){
                         <Form.Label >
                           <strong>Date :</strong>
                         </Form.Label>
-                        <Form.Control type="date"  name='date' placeholder="Date" onChange={handleChange} /> 
+                        <Form.Control type="date"  name='date' placeholder="Date"
+                         onChange={handleChange} /> 
                       </Form.Group>
                 </Col>
               </Row>
@@ -150,12 +158,16 @@ function AddIncident(){
 
               <Row>
                   <Col>
-                  <Form.Group>
-                  <Form.Label >
-                  <strong>Doctor :</strong>
-                    </Form.Label>
-                       <Form.Control type="text"  name='doctor' placeholder="Doctor" onChange={handleChange} />
-                       </Form.Group>
+                    <Form.Group >
+                      <Form.Label>
+                        Doctor :
+                      </Form.Label>
+                      <Form.Select aria-label="Default select example" name='doctor' onChange={handleChange}>
+                        {doctors.map((c) => {
+                          return <option value={c.doctor}>{c.doctor}</option>
+                        })}
+                      </Form.Select>
+                    </Form.Group>
                  </Col>
 
                   <Col>

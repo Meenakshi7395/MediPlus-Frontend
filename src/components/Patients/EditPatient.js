@@ -7,13 +7,14 @@ import { useState ,useEffect} from 'react';
 import { useNavigate } from "react-router-dom";
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-
+import { useContext } from 'react';
+import mediContext from '../../context/mediplus/mediContext';
 const gender=[
   "male","female"
 ]
 function EditPatient(){
-    const { id } = useParams();
-
+    const {id} = useParams();
+    const {accessToken }= useContext(mediContext)
   const[formData,setFormData]=useState({
     name: '',
     age:'',  
@@ -27,20 +28,21 @@ function EditPatient(){
   const [errors,setErrors] = useState([])
 
   const navigate = useNavigate()
-
+  
   const handleChange=(e) =>{
       setFormData({...formData,[e.target.name]:e.target.value});
      // console.log(formData);
   };
-
+  const API_URL = process.env.REACT_APP_BACKEND_API
+  
   function handleSubmit(e){
       e.preventDefault();
       console.log(formData);
 
-      fetch("http://localhost:5000/patients/"+id,{
+      fetch(`${API_URL}/patients/`+id,{
           method:'PATCH',
           headers:{
-            'Authorization': `Bearer ${localStorage.getItem("accessToken")}`,
+            'Authorization': `Bearer ${accessToken}`,
             'Content-Type':'application/json',
 
         },
@@ -70,7 +72,7 @@ function EditPatient(){
       }
       else
       {
-        console.log(data.errors);
+       // console.log(data.errors);
         setErrors(data.errors)
         setMessage(data.message +"! Please try again")
         
@@ -95,10 +97,15 @@ function EditPatient(){
 
     function getById()   
     {
-        fetch("http://localhost:5000/patients/"+id,{
+        fetch(`${API_URL}/patients/`+id,{
             method:'GET',
-                                                        
+            headers:{
+              'Authorization': `Bearer ${accessToken}`,
+              'Content-Type':'application/json',
+  
+          },                                             
         }).then(response =>{
+          
             if(!response.ok){
               throw new Error("Failed");
             }
@@ -128,7 +135,7 @@ function EditPatient(){
       <Col sm={2}></Col>
       <Col sm={8} style={{marginTop:50}}>
 
-     {message =="" ? <></> : <>
+     {message ==="" ? <></> : <>
       <Alert variant= {errors.length>0 ?"danger" :"success" }>
           {message}
          <ul>

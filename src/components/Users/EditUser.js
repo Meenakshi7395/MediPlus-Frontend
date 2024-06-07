@@ -3,11 +3,11 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import {Alert,Card} from 'react-bootstrap';
-import { useState ,useEffect} from 'react';
+import { useState ,useEffect,useContext} from 'react';
 import { useNavigate } from "react-router-dom";
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-
+import mediContext from '../../context/mediplus/mediContext';
 const roles=[
   "admin","maneger","staff"
 ]
@@ -26,19 +26,21 @@ function EditUser(){
   const [errors,setErrors] = useState([])
 
   const navigate = useNavigate()
-
+ const {accessToken}= useContext(mediContext)
   const handleChange=(e) =>{
       setFormData({...formData,[e.target.name]:e.target.value});
       console.log(formData);
   };
+  const API_URL = process.env.REACT_APP_BACKEND_API
+
 
   function handleSubmit(e){
       e.preventDefault();
       console.log(formData);
      
-      const accessToken = localStorage.getItem("accessToken")
+      
 
-      fetch("http://localhost:5000/users/"+id,{
+      fetch(`${API_URL}/users/`+id,{
           method:'PATCH',
           headers:{
               'Authorization': `Bearer ${accessToken}`,
@@ -59,7 +61,7 @@ function EditUser(){
 
       if(data.success){
         setErrors([])
-        setMessage("Data created suucefully");
+        setMessage("Updated suucefully");
         
 
       //redirect users page here
@@ -96,10 +98,10 @@ function EditUser(){
 
     function getById()   
     {
-        fetch("http://localhost:5000/users/"+id,{
+        fetch(`${API_URL}/users/`+id,{
             method:'GET',
             headers:{
-                'Authorization': `Bearer ${localStorage.getItem("accessToken")}`,
+                'Authorization': `Bearer ${accessToken}`,
                 'Content-Type':'application/json',
             },
                                                         

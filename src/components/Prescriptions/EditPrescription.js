@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useContext } from "react";
 import { Modal, Button, Row, Col, Form, Alert, ModalBody, } from "react-bootstrap";
 import { useNavigate, Link } from "react-router-dom";
+import mediContext from "../../context/mediplus/mediContext";
 
 function EditPrescription(props) {
     /*
@@ -17,7 +18,7 @@ function EditPrescription(props) {
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-
+    const {accessToken} =useContext(mediContext)
     const [formData, setFormData] = useState({
         opd: props.prescription.opd,
         medicine: props.prescription.medicine._id,
@@ -33,12 +34,13 @@ function EditPrescription(props) {
     const { onEdit } = props
 
     const navigate = useNavigate()
+    const API_URL = process.env.REACT_APP_BACKEND_API
 
     function getAllMedicines() {
-        fetch("http://localhost:5000/medicines", {
+        fetch(`${API_URL}/medicines`, {
             method: 'GET',
             headers:{
-                'Authorization': `Bearer ${localStorage.getItem("accessToken")}`,
+                'Authorization': `Bearer ${accessToken}`,
                 'Content-Type':'application/json',
     
             },
@@ -81,10 +83,10 @@ function EditPrescription(props) {
 
         console.log(formData);
 
-        fetch("http://localhost:5000/prescriptions/" + props.prescription._id, {
+        fetch(`${API_URL}/prescriptions/` + props.prescription._id, {
             method: 'PATCH',
             headers: {
-                'Authorization': `Bearer ${localStorage.getItem("accessToken")}`,
+                'Authorization': `Bearer ${accessToken}`,
                 'Content-Type': 'application/json',
 
             },

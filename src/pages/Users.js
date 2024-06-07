@@ -8,9 +8,12 @@ import { useNavigate } from 'react-router-dom';
 import React, { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
 import DeleteUser from '../components/Users/DeleteUser';
-  
+import { useContext } from 'react';
+import mediContext from '../context/mediplus/mediContext';
 
 function Users(){
+
+    const {accessToken} = useContext(mediContext)
     
     const [users,setUsers] = useState([])
 
@@ -21,12 +24,14 @@ function Users(){
 
     const navigate = useNavigate()
 
+    const API_URL = process.env.REACT_APP_BACKEND_API
+
     function getAllUsers()   
     {
-        fetch("http://localhost:5000/users",{
+        fetch(`${API_URL}/users`,{
             method:'GET',
             headers:{
-                'Authorization': `Bearer ${localStorage.getItem("accessToken")}`,
+                'Authorization': `Bearer ${accessToken}`,
                 'Content-Type':'application/json',
 
             },
@@ -57,7 +62,7 @@ function Users(){
 
     useEffect(()=>{
          getAllUsers();
-    },[])
+    },[accessToken])
 
     return<>
         <Row style={{paddingTop:30}}> 

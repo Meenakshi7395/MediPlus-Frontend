@@ -1,13 +1,16 @@
-import React, { useState } from "react";
+import React, { useState,useContext } from "react";
 import { Modal,Button } from "react-bootstrap";
+import mediContext from "../../context/mediplus/mediContext";
 
 function DeletePatient(props)
 {
     const [msg,setMsg] = useState(`Do you really want to Delete , ${props.name} record?`)
-    
+    const {accessToken} = useContext(mediContext)
+    const API_URL = process.env.REACT_APP_BACKEND_API
+
     function deletePatient()
     {
-            fetch("http://localhost:5000/patients/"+props.id,{
+            fetch(`${API_URL}/patients/`+props.id,{
                 method:'DELETE',
                 headers:{
                     'Authorization': `Bearer ${localStorage.getItem("accessToken")}`,

@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState,useContext } from "react";
 import { Modal,Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-
+import mediContext from "../../context/mediplus/mediContext";
 function DeletePrescription(props)
 {
     const [deleteModalShow, setDeleteModalShow] = useState(false);
@@ -10,17 +10,18 @@ function DeletePrescription(props)
     const handleShow = () => setDeleteModalShow(true);
 
     const{onDelete} = props
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+     const {accessToken} = useContext(mediContext)                                                                                                                                                                                                                                                                                                                                                                                                                                                           
     const [msg,setMsg] = useState(`Do you really want to Delete , ${props.name}' prescription ?`)
 
     const navigate = useNavigate()
-    
+    const API_URL = process.env.REACT_APP_BACKEND_API
+
     function deletePrescription()
     {
-            fetch("http://localhost:5000/prescriptions/"+props.id,{
+            fetch(`${API_URL}/prescriptions/`+props.id,{
                 method:'DELETE',
                 headers:{
-                    'Authorization': `Bearer ${localStorage.getItem("accessToken")}`,
+                    'Authorization': `Bearer ${accessToken}`,
                     'Content-Type':'application/json',
         
                 },                                       

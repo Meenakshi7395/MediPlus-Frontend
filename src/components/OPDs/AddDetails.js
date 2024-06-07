@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Modal, Button, Row, Col, Form, Alert, } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-
+import mediContext from '../../context/mediplus/mediContext';
 const status = ['New','Active','Hold','Closed'];
 
 function AddDitails(props) {
@@ -9,7 +9,7 @@ function AddDitails(props) {
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-
+    const {accessToken} = useContext(mediContext)
     const [formData, setFormData] = useState({
         diagnosis : props.diagnosis,
         chiefComplaint : props.chiefComplaint,
@@ -32,11 +32,13 @@ function AddDitails(props) {
         console.log("Hello");
 
         console.log(formData);
+        const API_URL = process.env.REACT_APP_BACKEND_API
 
-        fetch("http://localhost:5000/OPDs/" + props.opdId, {
+
+        fetch(`${API_URL}/OPDs/` + props.opdId, {
             method: 'PATCH',
             headers: {
-                'Authorization': `Bearer ${localStorage.getItem("accessToken")}`,
+                'Authorization': `Bearer ${(accessToken)}`,
                 'Content-Type': 'application/json',
 
             },

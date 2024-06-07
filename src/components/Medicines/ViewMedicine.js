@@ -1,10 +1,11 @@
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Card from 'react-bootstrap/Card';
-import React, { useState,useEffect } from "react";
+import React, { useState,useEffect,useContext } from "react";
 import { useNavigate, useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import DeleteMedicine from '../Medicines/DeleteMedicine';
+import mediContext from '../../context/mediplus/mediContext';
 
 
 function ViewMedicine(){
@@ -22,15 +23,16 @@ function ViewMedicine(){
     })
 
     const navigate = useNavigate()
-  
+    const {accessToken} = useContext(mediContext)
     /// use this id to make api call to server to fetch the user
+    const API_URL = process.env.REACT_APP_BACKEND_API
 
     function getById()   
     {
-        fetch("http://localhost:5000/medicines/"+id,{
+        fetch(`${API_URL}/medicines/${id}`,{
             method:'GET',
             headers:{
-                'Authorization': `Bearer ${localStorage.getItem("accessToken")}`,
+                'Authorization': `Bearer ${accessToken}`,
                 'Content-Type':'application/json',
     
             },                                         
