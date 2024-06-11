@@ -40,7 +40,7 @@ function DeleteMedicine(props)
                     setMsg(`${props.brandName}, Medicine is deleted!`)
                     setTimeout(()=>{
                         handleClose()
-                    },2000)
+                    },100)
                 }
                 else
                 {

@@ -12,6 +12,7 @@ import PdfGenerator from '../PDF/PdfGenerator';
 import { useContext } from 'react';
 import mediContext from '../../context/mediplus/mediContext';
 import { doctors } from '../PDF/Options';
+import { unstable_renderSubtreeIntoContainer } from 'react-dom';
 function ViewOPD() {
 
     /// read the id from query parameter of the url 
@@ -56,12 +57,28 @@ function ViewOPD() {
 
                     // search the doctor in the doctors JSON stored in frontend
                     // const doctorInfo = doctors.filter()
-                   
-                     doctorInfo = doctors.filter(item =>
-                        item.doctor === opdData.doctor );
-                    console.log(doctorInfo);
-                    
 
+                    // for(var i=0;i<doctors.length;i++)
+                    // {
+                    //     //console.log(doctors[i])
+                    //     //console.log(data.opd.doctor)
+                    //     if(doctors[i]["doctor"]===data.opd.doctor)
+                    //     {
+                    //         setDoctorInfo(doctors[i])
+                    //         break;
+                    //     }
+                    // }
+
+
+                    // console.log(doctorInfo)
+                    //const newdoctor = doctors.filter(item => {item.doctor === opdData.doctor})[0]
+                    setDoctorInfo(doctors.filter(item => item.doctor === data.opd.doctor)[0])
+                    //     {
+                    //         console.log(newdoctor.item)
+                    //     }
+                    // })
+                       
+                    
                     setIsDataReady(true)
                 }
                 else {
@@ -89,7 +106,7 @@ function ViewOPD() {
                     {isDataReady ?
                         <Card.Body>
                             <Row>
-                                <Col><p><strong>Doctor : </strong>{opdData.doctor}<br />B.Pharma(Pharmacists)<br />Mob. No.: 9720485986</p></Col>
+                                <Col><p><strong>Doctor : </strong>{doctorInfo.doctor}<br />{doctorInfo.degree}<br />Mob. No.: 9720485986</p></Col>
                                 <Col><img src={Img} style={{ height: 70, width: 80, marginTop: 15 }} /></Col>
                                 <Col><h5 style={{ color: 'green' }}>Health Care Clinic</h5>Near XYZ, New Delhi<br />223400<br />Timing: 9:00am to 2:00pm|Thursday:Closed</Col>
                             </Row>

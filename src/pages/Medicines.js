@@ -103,7 +103,7 @@ function Medicines(){
                                     <td>
                                         <Link to={"/medicines/view/"+medicine._id} className="btn btn-success">View</Link>
                                         <Link to={"/medicines/edit/"+medicine._id} className="btn btn-primary" style={{marginLeft:3}}>Edit</Link>
-                                        <DeleteMedicine id={medicine._id} brandName={medicine.brandName}/>
+                                        <DeleteMedicine id={medicine._id} brandName={medicine.brandName} />
                                     </td>
                                 </tr>
                             })}
