@@ -27,13 +27,12 @@ function AddUser(){
 
   const handleChange=(e) =>{
       setFormData({...formData,[e.target.name]:e.target.value});
-      console.log(formData);
   };
   const API_URL = process.env.REACT_APP_BACKEND_API
 
   function handleSubmit(e){
       e.preventDefault();
-      console.log("Hello");
+     
 
       fetch(`${API_URL}/users`,{
           method:'POST',
@@ -45,7 +44,7 @@ function AddUser(){
           body:JSON.stringify(formData),
       })
     .then(response =>{
-      console.log(response)
+      //console.log(response)
         if(!response.ok){
           throw new Error("Failed");
         }
@@ -53,7 +52,7 @@ function AddUser(){
     })
     .then(data =>{
        
-        console.log('Form submitted success',data);
+        //console.log('Form submitted success',data);
 
       if(data.success){
         setErrors([])
@@ -68,7 +67,7 @@ function AddUser(){
       }
       else
       {
-        console.log(data.errors);
+        //console.log(data.errors);
         setErrors(data.errors)
         setMessage(data.message +"! Please try again")
         
@@ -85,7 +84,7 @@ function AddUser(){
 })
 
   .catch(error=>{
-      console.error('Error: ',error);
+      //console.error('Error: ',error);
       navigate("/")
   
      
@@ -93,7 +92,7 @@ function AddUser(){
 
     }
     return <>
-    <Row>
+    <Row> 
       <Col sm={2}></Col>
       <Col sm={8} style={{marginTop:50}}>
 
@@ -105,7 +104,7 @@ function AddUser(){
             return <li>{e.path} has {e.msg}</li>
           })}
          </ul>
-        </Alert>
+        </Alert>  
      </>}
      
       <Card style={{backgroundColor:'#F0FFF0'}}>

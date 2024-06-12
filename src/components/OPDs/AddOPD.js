@@ -24,7 +24,7 @@ function AddOPD(props) {
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
-        console.log(formData);
+        //console.log(formData);
     };
 
     const API_URL = process.env.REACT_APP_BACKEND_API
@@ -32,10 +32,9 @@ function AddOPD(props) {
 
     function handleSubmit(e) {
         e.preventDefault();
-        console.log("Hello");
 
         formData['incident'] = props.incidentId
-        console.log(formData);
+       // console.log(formData);
 
         fetch(`${API_URL}/OPDs`, {
             method: 'POST',
@@ -47,15 +46,14 @@ function AddOPD(props) {
             body: JSON.stringify(formData),
         })
             .then(response => {
-                console.log(response)
                 if (!response.ok) {
                     throw new Error("Failed");
                 }
                 return response.json();
             })
             .then(data => {
-                console.log(data)
-                console.log('Form submitted success', data);
+                // console.log(data)
+                // console.log('Form submitted success', data);
 
                 if (data.success) {
                     setErrors([])
@@ -70,7 +68,7 @@ function AddOPD(props) {
 
                 }
                 else {
-                    console.log(data.errors);
+                    //console.log(data.errors);
                     setErrors(data.errors)
                     setMessage(data.message + "! Please try again")
 
@@ -79,7 +77,7 @@ function AddOPD(props) {
             })
 
             .catch(error => {
-                console.error('Login Error: ', error);
+                //console.error('Login Error: ', error);
                 navigate('/')
             });
     }
@@ -130,7 +128,7 @@ function AddOPD(props) {
                                     </Form.Select>
                                 </Form.Group>
                             </Col>
-                        </Row>
+                        </Row>   
                         <p></p>
 
                         <Row>

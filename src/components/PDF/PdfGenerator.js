@@ -10,8 +10,8 @@ function PdfGenerator(props){
     function generatePdf(){
         const doc = new jsPDF("p", "mm", "a4");
          console.log(props.OPD);
-
-        // Add content to the PDF
+        
+         // Add content to the PDF
 
         var img = new Image();
         img.src = image1;
@@ -56,7 +56,7 @@ function PdfGenerator(props){
         doc.text("MBBS,MD,MS",10,57);
         //doc.text("8220136604",10,57);
 
-
+     
         doc.setFont("Times New Roman","bold");
         doc.setFontSize(13);
         doc.setTextColor('#191970');
@@ -72,7 +72,7 @@ function PdfGenerator(props){
         doc.text(props.OPD["date"],30, 65);
 
         doc.setFont("Times New Roman","bold");
-        doc.setFontSize(13);
+        doc.setFontSize(13);    
         doc.setTextColor('#191970');
         doc.text("Fees: ",10, 73);
         doc.setFont("Times New Roman","normal");    //assiging the date

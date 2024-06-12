@@ -37,7 +37,7 @@ function EditIncident(){
 
   function handleSubmit(e){
       e.preventDefault();
-      console.log(formData);
+      //console.log(formData);
       
     fetch(`${API_URL}/incidents/`+id,{
           method:'PATCH',
@@ -72,7 +72,7 @@ function EditIncident(){
       }
       else
       {
-        console.log(data.errors);
+       // console.log(data.errors);
         setErrors(data.errors)
         setMessage(data.message +"! Please try again")
         
@@ -81,7 +81,7 @@ function EditIncident(){
 })
 
   .catch(error=>{
-      console.error('Error: ',error);
+      //console.error('Error: ',error);
     
   });
 
@@ -105,7 +105,6 @@ function EditIncident(){
         })
         .then(data =>{
            
-            console.log(data);
             if(data.success)
             {
                 setFormData(data.incident)
@@ -116,7 +115,7 @@ function EditIncident(){
             }
 
         }).catch(error=>{
-            console.error('Login Error: ',error);
+            //console.error('Login Error: ',error);
             navigate('/')
         });
     }
@@ -128,7 +127,7 @@ function EditIncident(){
       <Col sm={2}></Col>
       <Col sm={8} style={{marginTop:50}}>
 
-     {message =="" ? <></> : <>
+     {message ==="" ? <></> : <>
       <Alert variant= {errors.length>0 ?"danger" :"success" }>
           {message}
          <ul>
@@ -137,7 +136,7 @@ function EditIncident(){
           })}
          </ul>
         </Alert>
-     </>}
+     </>}  
      
       <Card style={{backgroundColor:'#B0E0E6'}}>
       <Card.Header style={{backgroundColor:"#00BFFF" , fontFamily:'sans-serif'}}>Edit Incident's Detail</Card.Header>

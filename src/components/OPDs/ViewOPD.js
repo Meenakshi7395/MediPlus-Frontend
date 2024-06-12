@@ -12,7 +12,6 @@ import PdfGenerator from '../PDF/PdfGenerator';
 import { useContext } from 'react';
 import mediContext from '../../context/mediplus/mediContext';
 import { doctors } from '../PDF/Options';
-import { unstable_renderSubtreeIntoContainer } from 'react-dom';
 function ViewOPD() {
 
     /// read the id from query parameter of the url 
@@ -31,7 +30,7 @@ function ViewOPD() {
     const API_URL = process.env.REACT_APP_BACKEND_API
 
     function dataChange(){
-        setIsDataChange((isDataChange) => isDataChange + 1);
+        setIsDataChange(isDataChange + 1);
     }
 
     /// use this id to make api call to server to fetch the incidents
@@ -51,13 +50,11 @@ function ViewOPD() {
         })
             .then(data => {
 
-                console.log(data);
                 if (data.success) {
                     setopdData(data.opd)
 
                     // search the doctor in the doctors JSON stored in frontend
-                    // const doctorInfo = doctors.filter()
-
+                    
                     // for(var i=0;i<doctors.length;i++)
                     // {
                     //     //console.log(doctors[i])
@@ -69,9 +66,7 @@ function ViewOPD() {
                     //     }
                     // }
 
-
-                    // console.log(doctorInfo)
-                    //const newdoctor = doctors.filter(item => {item.doctor === opdData.doctor})[0]
+                    //or
                     setDoctorInfo(doctors.filter(item => item.doctor === data.opd.doctor)[0])
                     //     {
                     //         console.log(newdoctor.item)
@@ -86,7 +81,7 @@ function ViewOPD() {
                 }
 
             }).catch(error => {
-                console.error('Login Error: ', error);
+                //console.error('Login Error: ', error);
                 navigate('/')
             });
     }
@@ -107,7 +102,7 @@ function ViewOPD() {
                         <Card.Body>
                             <Row>
                                 <Col><p><strong>Doctor : </strong>{doctorInfo.doctor}<br />{doctorInfo.degree}<br />Mob. No.: 9720485986</p></Col>
-                                <Col><img src={Img} style={{ height: 70, width: 80, marginTop: 15 }} /></Col>
+                                <Col><img src={Img} alt="" style={{ height: 70, width: 80, marginTop: 15 }} /></Col>
                                 <Col><h5 style={{ color: 'green' }}>Health Care Clinic</h5>Near XYZ, New Delhi<br />223400<br />Timing: 9:00am to 2:00pm|Thursday:Closed</Col>
                             </Row>
                             <p></p>

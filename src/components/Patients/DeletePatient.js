@@ -7,13 +7,13 @@ function DeletePatient(props)
     const [msg,setMsg] = useState(`Do you really want to Delete , ${props.name} record?`)
     const {accessToken} = useContext(mediContext)
     const API_URL = process.env.REACT_APP_BACKEND_API
-
+    const {onDelete}=props;
     function deletePatient()
     {
             fetch(`${API_URL}/patients/`+props.id,{
-                method:'DELETE',
+                method:'DELETE',   
                 headers:{
-                    'Authorization': `Bearer ${localStorage.getItem("accessToken")}`,
+                    'Authorization': `Bearer ${accessToken}`,
                     'Content-Type':'application/json',
         
                 },
@@ -25,15 +25,14 @@ function DeletePatient(props)
                 return response.json();
             })
             .then(data =>{
-            
-                console.log(data);
                if(data.success)
                 {
                     //alert(data.message)
                     setMsg(`${props.name}, patient is deleted!`)
+                    onDelete();
                     setTimeout(()=>{
                         props.handleClose()
-                    },2000)
+                    },100)
                 }
                 else
                 {
@@ -41,7 +40,7 @@ function DeletePatient(props)
                 }
 
             }).catch(error=>{
-                console.error('Login Error: ',error);
+                //console.error('Login Error: ',error);
             });
         }
 

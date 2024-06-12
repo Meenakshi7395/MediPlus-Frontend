@@ -35,16 +35,16 @@ function ViewMedicine(){
                 'Authorization': `Bearer ${accessToken}`,
                 'Content-Type':'application/json',
     
-            },                                         
+            },                                             
         }).then(response =>{
-            if(!response.ok){
+            if(!response.ok){ 
               throw new Error("Failed");
             }
             return response.json();
         })
         .then(data =>{
            
-            console.log(data);
+            //console.log(data);
             if(data.success)
             {
                 setMedicineData(data.medicine)
@@ -55,7 +55,7 @@ function ViewMedicine(){
             }
 
         }).catch(error=>{
-            console.error('Login Error: ',error);
+            //console.error('Login Error: ',error);
             navigate('/')
         });
     }

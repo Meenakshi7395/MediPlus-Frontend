@@ -41,7 +41,7 @@ function EditMedicine(){
 
   function handleSubmit(e){
       e.preventDefault();
-      console.log(formData);
+      //console.log(formData);
 
       fetch(`${API_URL}/medicines/`+id,{
           method:'PATCH',
@@ -53,7 +53,6 @@ function EditMedicine(){
           body:JSON.stringify(formData),
       })
     .then(response =>{
-       // console.log(response)
         if(!response.ok){
           throw new Error("Failed");
         }
@@ -61,7 +60,7 @@ function EditMedicine(){
     })
     .then(data =>{
        
-        console.log('Form submitted success',data);
+       // console.log('Form submitted success',data);
 
       if(data.success){
         setErrors([])
@@ -74,26 +73,17 @@ function EditMedicine(){
        },2000)
         
       }
-      else
+      else    
       {
-        console.log(data.errors);
+        //console.log(data.errors);
         setErrors(data.errors)
         setMessage(data.message +"! Please try again")
         
       }
-      // clear form data
-    //   setFormData({
-    //     brandName: '',
-    //     chemicalName:'',  
-    //     category:'',
-    //     description:'',
-    //     unitPrice:'',
-    //     manufecturer:''
-    // });
 })
 
   .catch(error=>{
-      console.error('Login Error: ',error);
+      //console.error('Login Error: ',error);
       navigate('/')
     
   });
@@ -116,8 +106,6 @@ function EditMedicine(){
             return response.json();
         })
         .then(data =>{
-           
-            console.log(data);
             if(data.success)
             {
                 setFormData(data.medicine)
@@ -128,7 +116,7 @@ function EditMedicine(){
             }
 
         }).catch(error=>{
-            console.error('Login Error: ',error);
+            //console.error('Login Error: ',error);
             navigate('/')
         });
     }
@@ -140,7 +128,7 @@ function EditMedicine(){
       <Col sm={2}></Col>
       <Col sm={8} style={{marginTop:50}}>
 
-     {message =="" ? <></> : <>
+     {message ==="" ? <></> : <>
       <Alert variant= {errors.length>0 ?"danger" :"success" }>
           {message}
          <ul>

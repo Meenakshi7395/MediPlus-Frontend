@@ -18,7 +18,13 @@ function Users(){
     const [users,setUsers] = useState([])
 
     const [deleteModalShow, setDeleteModalShow] = useState(false);
-
+    
+    const [isDataChange,setIsDataChange] = useState(0);
+    
+    function dataChange(){
+        setIsDataChange(isDataChange+1)
+    }
+    
     const handleClose = () => setDeleteModalShow(false);
     const handleShow = () => setDeleteModalShow(true);
 
@@ -43,8 +49,7 @@ function Users(){
             return response.json();
         })
         .then(data =>{
-           
-            console.log(data);
+           console.log(data);
             if(data.success)
             {
                 setUsers(data.users)
@@ -55,14 +60,14 @@ function Users(){
             }
 
         }).catch(error=>{
-            console.error('Login Error: ',error);
+           // console.error('Login Error: ',error);
             navigate('/')
         });
     }
-
+ 
     useEffect(()=>{
          getAllUsers();
-    },[accessToken])
+    },[isDataChange])
 
     return<>
         <Row style={{paddingTop:30}}> 
@@ -105,7 +110,7 @@ function Users(){
                                         <Link to={"/users/view/"+user._id} className="btn btn-success">View</Link>
                                         <Link to={"/users/edit/"+user._id} className="btn btn-primary" style={{marginLeft:3}}>Edit</Link>
                                         <Button className="btn btn-warning"  style={{marginLeft:3}} onClick={handleShow}>Delete</Button>
-                                         <DeleteUser id={user._id} name={user.name} show={deleteModalShow} handleClose={handleClose}/>
+                                         <DeleteUser id={user._id} name={user.name} show={deleteModalShow} handleClose={handleClose} onDelete={dataChange}/>
                                     </td>
                                 </tr>
                             })}

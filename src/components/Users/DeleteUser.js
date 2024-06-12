@@ -11,8 +11,10 @@ function DeleteUser(props)
     const {accessToken} = useContext(mediContext)
     const API_URL = process.env.REACT_APP_BACKEND_API
 
+    const{onDelete}=props;
+
     function deleteUser()
-    {
+    {  
             fetch(`${API_URL}/users/`+props.id,{
                 method:'DELETE',
                 headers:{
@@ -27,15 +29,15 @@ function DeleteUser(props)
                 return response.json();
             })
             .then(data =>{
-            
-                console.log(data);
+        
                if(data.success)
                 {
                     //alert(data.message)
                     setMsg(`${props.name}, user is deleted!`)
+                    onDelete();
                     setTimeout(()=>{
                         props.handleClose()
-                    },2000)
+                    },100)
                 }
                 else
                 {
@@ -43,7 +45,7 @@ function DeleteUser(props)
                 }
 
             }).catch(error=>{
-                console.error('Login Error: ',error);
+               // console.error('Login Error: ',error);
                 navigate('/')
             });
         }

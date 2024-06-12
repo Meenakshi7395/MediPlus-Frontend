@@ -23,7 +23,6 @@ function Login(){
 
     const handleChange=(e) =>{
         setFormData({...formData,[e.target.name]:e.target.value});
-        console.log(formData);
     };
 
     function handleSubmit(e){
@@ -48,7 +47,7 @@ function Login(){
 
     .then(data =>{
 
-        console.log('Login success',data);
+       // console.log('Login success',data);
 
         //clear form data
         setFormData({
@@ -63,13 +62,13 @@ function Login(){
         //localStorage.setItem("accessToken",data.accessToken)
         onLogin(data.user,data.accessToken)
         
-        //redirect notes page here
+        //redirect patients page here
         navigate("/patients");
 
     })
 
     .catch(error=>{
-        console.error('Login Error: ',error);
+       // console.error('Login Error: ',error);
 
         //hide submitting msg
         setSubmitting(false);
@@ -121,11 +120,5 @@ function Login(){
     </Card>  
     </>
 }
-//  const logout(){
-//   // Remove the access token from local storage
-//   localStorage.removeItem('accessToken');
-//    //redirect page here
-//   navigate("/");
-// }
 
 export default Login;

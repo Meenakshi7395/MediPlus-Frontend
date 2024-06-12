@@ -26,16 +26,13 @@ function AddMedicine(){
 
   const handleChange=(e) =>{
       setFormData({...formData,[e.target.name]:e.target.value});
-      console.log(formData);
+     // console.log(formData);
   };
 
   const API_URL = process.env.REACT_APP_BACKEND_API
 
   function handleSubmit(e){
       e.preventDefault();
-      console.log("Hello");
-
-      console.log(formData);
 
       fetch(`${API_URL}/medicines`,{
           method:'POST',
@@ -47,19 +44,18 @@ function AddMedicine(){
           body:JSON.stringify(formData),
       })
     .then(response =>{
-      console.log(response)
         if(!response.ok){
           throw new Error("Failed");
         }
         return response.json();
-    })
+    })   
     .then(data =>{
        
-        console.log('Form submitted success',data);
+       // console.log('Form submitted success',data);
 
       if(data.success){
         setErrors([])
-        setMessage("Medicine added suucefully");
+        setMessage("Medicine added successfully");
 
       //redirect Medicines page here
        setTimeout(()=>{
@@ -69,7 +65,7 @@ function AddMedicine(){
       }
       else
       {
-        console.log(data.errors);
+       // console.log(data.errors);
         setErrors(data.errors)
         setMessage(data.message +"! Please try again")
         
@@ -86,7 +82,7 @@ function AddMedicine(){
 })
 
   .catch(error=>{
-      console.error('Login Error: ',error);
+      //console.error('Login Error: ',error);
       navigate('/')
   });
 

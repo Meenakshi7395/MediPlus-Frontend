@@ -16,12 +16,13 @@ function Medicines(){
     
     const [medicines,setMedicines] = useState([])
 
-    // const [deleteModalShow, setDeleteModalShow] = useState(false);
-
-    // const handleClose = () => setDeleteModalShow(false);
-    // const handleShow = () => setDeleteModalShow(true);
-
     const navigate = useNavigate();
+
+    const [isDataChange,setIsDataChange] = useState(0)
+    
+    function dataChange(){
+        setIsDataChange(isDataChange+1);
+    }
 
     const API_URL = process.env.REACT_APP_BACKEND_API
     function getAllMedicines()   
@@ -41,7 +42,6 @@ function Medicines(){
         })
         .then(data =>{
            
-            console.log(data);
             if(data.success)
             {
                 setMedicines(data.medicines)
@@ -52,14 +52,14 @@ function Medicines(){
             }
 
         }).catch(error=>{
-            console.error('Login Error: ',error);
+            //console.error('Login Error: ',error);
             navigate('/')
-        });
+        });  
     }
 
     useEffect(()=>{
          getAllMedicines();
-    },[accessToken])
+    }, [isDataChange])
 
     return<>
         <Row style={{paddingTop:30}}> 
@@ -103,7 +103,7 @@ function Medicines(){
                                     <td>
                                         <Link to={"/medicines/view/"+medicine._id} className="btn btn-success">View</Link>
                                         <Link to={"/medicines/edit/"+medicine._id} className="btn btn-primary" style={{marginLeft:3}}>Edit</Link>
-                                        <DeleteMedicine id={medicine._id} brandName={medicine.brandName} />
+                                        <DeleteMedicine id={medicine._id} brandName={medicine.brandName} onDelete={dataChange} />
                                     </td>
                                 </tr>
                             })}

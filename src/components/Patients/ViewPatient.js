@@ -12,7 +12,7 @@ import mediContext from '../../context/mediplus/mediContext';
 function ViewPatient(){
 
     /// read the id from path parameter of the url ===> /patients/view/:id
-    const {id} = useParams(); // Access the parameters of url
+    const {id} = useParams();      // Access the parameters of url
     const {accessToken }= useContext(mediContext)
     const navigate = useNavigate();
     const [patientData,setPatientData] = useState({
@@ -25,13 +25,19 @@ function ViewPatient(){
         incidents:[]
     })
   
+    const[isDataChange,setIsDataChange]=useState(0);
+
+    function dataChange(){
+        setIsDataChange(isDataChange+1);
+    }
+
     /// use this id to make api call to server to fetch the user
     const API_URL = process.env.REACT_APP_BACKEND_API
 
     function getById()   
     {
         fetch(`${API_URL}/patients/`+id,{
-            method:'GET',
+            method:'GET', 
             headers:{
                 'Authorization': `Bearer ${accessToken}`,
             },                                            
@@ -43,7 +49,7 @@ function ViewPatient(){
         })
         .then(data =>{
            
-            console.log(data);
+        // console.log(data);
             if(data.success)
             {
                 setPatientData(data.patient)
@@ -54,12 +60,12 @@ function ViewPatient(){
             }
 
         }).catch(error=>{
-            console.error('Login Error: ',error);
+            //console.error('Login Error: ',error);
             navigate('/')
         });
     }
 
-    useEffect(()=>{getById()},[])
+    useEffect(()=>{getById()},[isDataChange])
     
     return<>
         <Row>
@@ -68,7 +74,7 @@ function ViewPatient(){
           <Card style={{backgroundColor:'#FFF0F5'}}>
           <Card.Header style={{backgroundColor:"#DDA0DD",fontFamily:'sans-serif'}}>View Patient's Detail</Card.Header>
           <Card.Body>
-            <Row>
+            <Row>  
                 <Col> <p><strong>Name : </strong>{patientData.name}</p></Col>
                 <Col><p><strong>Age : </strong> {patientData.age}</p></Col>
                 <Col><p><strong>Gender : </strong>{patientData.gender}</p></Col>
@@ -119,7 +125,7 @@ function ViewPatient(){
                                     <td>
                                         <Link to={"/incidents/view/"+incident._id} className="btn btn-success" >View</Link>
                                         <Link to={"/incidents/edit/"+incident._id} className="btn btn-primary" style={{marginLeft:3}} >Edit</Link>
-                                        <DeleteIncident id={incident._id} name={patientData.name} date={incident.date} status={incident.status}/>
+                                        <DeleteIncident id={incident._id} name={patientData.name} date={incident.date} status={incident.status} onDelete={dataChange}/>
                                     </td>
                                 </tr>
                             })}

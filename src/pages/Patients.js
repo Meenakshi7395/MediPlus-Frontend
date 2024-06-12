@@ -10,7 +10,6 @@ import DeletePatient from '../components/Patients/DeletePatient';
 import { useNavigate } from 'react-router-dom';
 import mediContext from '../context/mediplus/mediContext';
 
-
 function Patients(){
 
     const {accessToken} = useContext(mediContext)
@@ -19,6 +18,11 @@ function Patients(){
 
     const [deleteModalShow, setDeleteModalShow] = useState(false);
 
+    const [isDataChange, setIsDataChange]= useState(0);
+
+    function dataChange(){
+        setIsDataChange(isDataChange+1)
+    }
     const handleClose = () => setDeleteModalShow(false);
     const handleShow = () => setDeleteModalShow(true);
 
@@ -43,7 +47,6 @@ function Patients(){
         })
         .then(data =>{
            
-            console.log(data);
             if(data.success)
             {
                 setPatients(data.patients)
@@ -54,15 +57,15 @@ function Patients(){
             }
 
         }).catch(error=>{
-            console.error('Login Error: ',error);
+           // console.error('Login Error: ',error);
             navigate('/');
             console.log("nevigate")
         });
     }
 
     useEffect(()=>{
-         getAllPatients();
-    },[])
+         getAllPatients(); 
+    }, [isDataChange])
 
     return<>
         <Row style={{paddingTop:30}}> 
@@ -107,7 +110,7 @@ function Patients(){
                                         <Link to={"/patients/view/"+patient._id} className="btn btn-success">View</Link>
                                         <Link to={"/patients/edit/"+patient._id} className="btn btn-primary" style={{marginLeft:3}}>Edit</Link>
                                         <Button className="btn btn-warning"  style={{marginLeft:3}} onClick={handleShow}>Delete</Button>
-                                         <DeletePatient id={patient._id} name={patient.name} show={deleteModalShow} handleClose={handleClose}/>
+                                         <DeletePatient id={patient._id} name={patient.name} show={deleteModalShow} handleClose={handleClose} onDelete={dataChange}/>
                                     </td>
                                 </tr>
                             })}

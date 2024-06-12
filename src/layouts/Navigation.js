@@ -4,12 +4,11 @@ import Navbar from 'react-bootstrap/Navbar';
 import { useContext } from 'react';
 import mediContext from '../context/mediplus/mediContext';
 import Dropdown from 'react-bootstrap/Dropdown';
-import DropdownButton from 'react-bootstrap/DropdownButton';
 import { NavDropdown } from 'react-bootstrap';
 
 function Navigation (){
    const {user,onLogout} = useContext(mediContext)
-    return <>
+    return <>    
     <Navbar bg="success" data-bs-theme="dark">
         <Container>
             <Navbar.Brand href="">MediPlus</Navbar.Brand>
@@ -23,7 +22,7 @@ function Navigation (){
             </DropdownButton> */}
             </Nav> 
 
-            <Nav>
+            <Nav> 
                 <NavDropdown title={user.name}>
                     <Dropdown.Item onClick={onLogout}>Logout</Dropdown.Item>
                 </NavDropdown>

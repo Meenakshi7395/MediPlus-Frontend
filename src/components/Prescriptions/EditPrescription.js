@@ -4,16 +4,6 @@ import { useNavigate, Link } from "react-router-dom";
 import mediContext from "../../context/mediplus/mediContext";
 
 function EditPrescription(props) {
-    /*
-    props.prescription : 
-
-    {
-        opd:"id of opd",
-        medicine:""
-    }
-
-    */
-
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
@@ -53,7 +43,6 @@ function EditPrescription(props) {
         })
             .then(data => {
 
-                console.log(data);
                 if (data.success) {
                     setMedicines(data.medicines)
                 }
@@ -62,7 +51,7 @@ function EditPrescription(props) {
                 }
 
             }).catch(error => {
-                console.error('Login Error: ', error);
+                //console.error('Login Error: ', error);
                 navigate('/')
             });
     }
@@ -78,10 +67,7 @@ function EditPrescription(props) {
 
     function handleSubmit(e) {
         e.preventDefault();
-        console.log("Hello");
 
-
-        console.log(formData);
 
         fetch(`${API_URL}/prescriptions/` + props.prescription._id, {
             method: 'PATCH',
@@ -93,16 +79,15 @@ function EditPrescription(props) {
             body: JSON.stringify(formData),
         })
             .then(response => {
-                console.log(response)
                 if (!response.ok) {
                     throw new Error("Failed");
                 }
-                console.log(response)
+               // console.log(response)
                 return response.json();
             })
             .then(data => {
-                console.log(data)
-                console.log('Form submitted success', data);
+                // console.log(data)
+                // console.log('Form submitted success', data);
 
                 if (data.success) {
                     setErrors([])
@@ -115,7 +100,7 @@ function EditPrescription(props) {
 
                 }
                 else {
-                    console.log(data.errors);
+                    // console.log(data.errors);
                     setErrors(data.errors)
                     setMessage(data.message + "! Please try again")
 
@@ -124,10 +109,10 @@ function EditPrescription(props) {
             })
 
             .catch(error => {
-                console.error('Login Error: ', error);
+                //console.error('Login Error: ', error);
                 navigate('/')
             });
-    }
+    }  
 
 
     return <>

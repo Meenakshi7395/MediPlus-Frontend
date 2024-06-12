@@ -37,7 +37,7 @@ function EditPatient(){
   
   function handleSubmit(e){
       e.preventDefault();
-      console.log(formData);
+      //console.log(formData);
 
       fetch(`${API_URL}/patients/`+id,{
           method:'PATCH',
@@ -57,7 +57,7 @@ function EditPatient(){
     })
     .then(data =>{
        
-        console.log('Form submitted success',data);
+        //console.log('Form submitted success',data);
 
       if(data.success){
         setErrors([])
@@ -89,7 +89,7 @@ function EditPatient(){
 })
 
   .catch(error=>{
-      console.error('Error: ',error);
+      //console.error('Error: ',error);
       navigate('/')
   });
 
@@ -112,8 +112,6 @@ function EditPatient(){
             return response.json();
         })
         .then(data =>{
-           
-            console.log(data);
             if(data.success)
             {
                 setFormData(data.patient)
@@ -124,7 +122,7 @@ function EditPatient(){
             }
 
         }).catch(error=>{
-            console.error('Login Error: ',error);
+           // console.error('Login Error: ',error);
         });
     }
 

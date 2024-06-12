@@ -1,6 +1,6 @@
 import React, { useState,useContext} from "react";
 import { Modal, Button, Row, Col, Form, Alert, } from "react-bootstrap";
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import mediContext from "../../context/mediplus/mediContext";
 function AddVitals(props) {
     const [show, setShow] = useState(false);
@@ -22,16 +22,14 @@ function AddVitals(props) {
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
-        console.log(formData);
+        //console.log(formData);
     };
     const API_URL = process.env.REACT_APP_BACKEND_API
 
 
     function handleSubmit(e) {
         e.preventDefault();
-        console.log("Hello");
 
-        console.log(formData);
 
         fetch(`${API_URL}/OPDs/` + props.opdId, {
             method: 'PATCH',
@@ -43,15 +41,14 @@ function AddVitals(props) {
             body: JSON.stringify(formData),
         })
             .then(response => {
-                console.log(response)
                 if (!response.ok) {
                     throw new Error("Failed");
                 }
                 return response.json();
-            })
+            })    
             .then(data => {
 
-                console.log('Form submitted success', data);
+               // console.log('Form submitted success', data);
 
                 if (data.success) {
                     setErrors([])
@@ -64,7 +61,7 @@ function AddVitals(props) {
 
                 }
                 else {
-                    console.log(data.errors);
+                    //console.log(data.errors);
                     setErrors(data.errors)
                     setMessage(data.message + "! Please try again")
 
@@ -73,7 +70,7 @@ function AddVitals(props) {
             })
 
             .catch(error => {
-                console.error('Error: ', error);
+                //console.error('Error: ', error);
                 navigate('/')
             });
     }
@@ -88,7 +85,7 @@ function AddVitals(props) {
             <Modal.Body>
                 <Row>
 
-                    {message == "" ? <></> : <>
+                    {message === "" ? <></> : <>
                         <Alert variant={errors.length > 0 ? "danger" : "success"}>
                             {message}
                             <ul>

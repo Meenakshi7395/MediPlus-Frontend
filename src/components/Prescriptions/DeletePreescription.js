@@ -33,7 +33,7 @@ function DeletePrescription(props)
             })
             .then(data =>{
             
-                console.log(data);
+               // console.log(data);
                if(data.success)
                 {
                     //alert(data.message)
@@ -49,7 +49,7 @@ function DeletePrescription(props)
                 }
 
             }).catch(error=>{
-                console.error('Login Error: ',error);
+               // console.error('Login Error: ',error);
                 navigate('/')
             });
         }

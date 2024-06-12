@@ -29,18 +29,15 @@ function EditUser(){
  const {accessToken}= useContext(mediContext)
   const handleChange=(e) =>{
       setFormData({...formData,[e.target.name]:e.target.value});
-      console.log(formData);
+      
   };
   const API_URL = process.env.REACT_APP_BACKEND_API
 
 
   function handleSubmit(e){
       e.preventDefault();
-      console.log(formData);
-     
       
-
-      fetch(`${API_URL}/users/`+id,{
+    fetch(`${API_URL}/users/`+id,{
           method:'PATCH',
           headers:{
               'Authorization': `Bearer ${accessToken}`,
@@ -49,15 +46,14 @@ function EditUser(){
           body:JSON.stringify(formData),
       })
     .then(response =>{
-        console.log(response)
         if(!response.ok){
           throw new Error("Failed");
         }
         return response.json();
     })
     .then(data =>{
-       
-        console.log('Form submitted success',data);
+        
+        //console.log('Form submitted success',data);
 
       if(data.success){
         setErrors([])
@@ -72,7 +68,7 @@ function EditUser(){
       }
       else
       {
-        console.log(data.errors);
+        //console.log(data.errors);
         setErrors(data.errors)
         setMessage(data.message +"! Please try again")
         
@@ -88,7 +84,7 @@ function EditUser(){
 })
 
   .catch(error=>{
-      console.error('Error: ',error);
+      //console.error('Error: ',error);
      navigate("/")
   
      
@@ -113,7 +109,6 @@ function EditUser(){
         })
         .then(data =>{
            
-            console.log(data);
             if(data.success)
             {
                 setFormData(data.users)
@@ -124,7 +119,7 @@ function EditUser(){
             }
 
         }).catch(error=>{
-            console.error('Login Error: ',error);
+            //console.error('Login Error: ',error);
             navigate('/')
         });
     }

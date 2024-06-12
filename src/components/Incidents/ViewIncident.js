@@ -15,7 +15,6 @@ function ViewIncident(){
 
     /// read the id from query parameter of the url 
     const { id } = useParams(); // Access the userId parameter
-
     const [incidentData,setIncidentData] = useState({
       patient:{},
       date :'', 
@@ -44,13 +43,13 @@ function ViewIncident(){
             },                                         
         }).then(response =>{
             if(!response.ok){
-              throw new Error("Failed");
+              throw new Error("Failed");   
             }
             return response.json();
         })
         .then(data =>{
            
-            console.log(data);
+           // console.log(data);
             if(data.success)
             {
                 setIncidentData(data.incident)
@@ -61,7 +60,7 @@ function ViewIncident(){
             }
 
         }).catch(error=>{
-            console.error('Login Error: ',error);
+           // console.error('Login Error: ',error);
             navigate('/')
         });
     }
@@ -133,9 +132,6 @@ function ViewIncident(){
                                         <Link to={"/OPDs/view/"+opd._id} className="btn btn-success" >View</Link>
                                         <AddVitals opdId = {opd._id}/>
                                         <AddDitails opdId={opd._id} diagnosis={opd.diagnosis} chiefComplaint={opd.chiefComplaint} />
-                                        {/* <Link to={"/OPDs/edit/"+opd._id} className="btn btn-primary" style={{marginLeft:3}} ></Link> */}
-                                        {/* <DeleteOPD id={opd._id} /> */}
-                                        {/* <AddVitals id={opd._id} name={patientData.name}/> */}
                                     </td>
                                 </tr>
                             })}

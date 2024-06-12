@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { Modal, Button, Row, Col, Form, Alert, } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import mediContext from '../../context/mediplus/mediContext';
-const status = ['New','Active','Hold','Closed'];
+
 
 function AddDitails(props) {
     const [show, setShow] = useState(false);
@@ -14,7 +14,7 @@ function AddDitails(props) {
         diagnosis : props.diagnosis,
         chiefComplaint : props.chiefComplaint,
         advice:'',
-        allergy:'',
+        allergy:'',   
     });
 
     const [message, setMessage] = useState("")
@@ -22,16 +22,15 @@ function AddDitails(props) {
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
-        console.log(formData);
+       // console.log(formData);
     };
 
     const navigate = useNavigate()
 
     function handleSubmit(e) {
         e.preventDefault();
-        console.log("Hello");
 
-        console.log(formData);
+        //console.log(formData);
         const API_URL = process.env.REACT_APP_BACKEND_API
 
 
@@ -45,7 +44,6 @@ function AddDitails(props) {
             body: JSON.stringify(formData),
         })
             .then(response => {
-                console.log(response)
                 if (!response.ok) {
                     throw new Error("Failed");
                 }
@@ -53,7 +51,7 @@ function AddDitails(props) {
             })
             .then(data => {
 
-                console.log('Form submitted success', data);
+                //console.log('Form submitted success', data);
 
                 if (data.success) {
                     setErrors([])
@@ -66,7 +64,7 @@ function AddDitails(props) {
 
                 }
                 else {
-                    console.log(data.errors);
+                    //console.log(data.errors);
                     setErrors(data.errors)
                     setMessage(data.message + "! Please try again")
 
@@ -75,7 +73,7 @@ function AddDitails(props) {
             })
 
             .catch(error => {
-                console.error('Login Error: ', error);
+                //console.error('Login Error: ', error);
                 navigate('/')
             });
     }
@@ -90,7 +88,7 @@ function AddDitails(props) {
             <Modal.Body>
                 <Row>
 
-                    {message == "" ? <></> : <>
+                    {message === "" ? <></> : <>
                         <Alert variant={errors.length > 0 ? "danger" : "success"}>
                             {message}
                             <ul>

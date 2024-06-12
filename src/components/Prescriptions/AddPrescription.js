@@ -1,6 +1,6 @@
 import React, { useState, useEffect,useContext } from "react";
 import { Modal, Button, Row, Col, Form, Alert, } from "react-bootstrap";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { frequencyData } from "../PDF/Options";
 import mediContext from "../../context/mediplus/mediContext";
 function AddPrescription(props) {
@@ -43,7 +43,7 @@ function AddPrescription(props) {
         })
             .then(data => {
 
-                console.log(data);
+                //console.log(data);
                 if (data.success) {
                     setMedicines(data.medicines)
                 }
@@ -52,7 +52,7 @@ function AddPrescription(props) {
                 }
 
             }).catch(error => {
-                console.error('Login Error: ', error);
+                //console.error('Login Error: ', error);
                 navigate('/')
             });
     }
@@ -64,16 +64,13 @@ function AddPrescription(props) {
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
-        console.log(formData);
+        //console.log(formData);
     };
 
     function handleSubmit(e) {
         e.preventDefault();
-        console.log("Hello");
-
+        
         formData['opd'] = props.opdId
-        console.log(formData);
-
         fetch(`${API_URL}/prescriptions`, {
             method: 'POST',
             headers: {
@@ -84,15 +81,14 @@ function AddPrescription(props) {
             body: JSON.stringify(formData),
         })
             .then(response => {
-                console.log(response)
                 if (!response.ok) {
                     throw new Error("Failed");
                 }
                 return response.json();
             })
             .then(data => {
-                console.log(data)
-                console.log('Form submitted success', data);
+            
+                // console.log('Form submitted success', data);
 
                 if (data.success) {
                     setErrors([])
@@ -115,7 +111,7 @@ function AddPrescription(props) {
 
                 }
                 else {
-                    console.log(data.errors);
+                   // console.log(data.errors);
                     setErrors(data.errors)
                     setMessage(data.message + "! Please try again")
 
@@ -125,7 +121,7 @@ function AddPrescription(props) {
   
 
         .catch (error => {
-            console.error('Error: ', error);
+            //.error('Error: ', error);
             navigate('/')
         });
 
@@ -167,7 +163,7 @@ function AddPrescription(props) {
                                 </Form.Select>
                             </Form.Group>
                         </Col>
-                    </Row>
+                    </Row>   
                     <Row>
                         <Col>
                             <Form.Group>

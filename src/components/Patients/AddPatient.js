@@ -32,18 +32,13 @@ function AddPatient(){
 
   const handleChange=(e) =>{
       setFormData({...formData,[e.target.name]:e.target.value});
-      console.log(formData);
   };
   const API_URL = process.env.REACT_APP_BACKEND_API
 
-
   function handleSubmit(e){
       e.preventDefault();
-      console.log("Hello");
 
-      console.log(formData);
-
-      fetch(`${API_URL}/patients`,{
+      fetch(`${API_URL}/patients`,{    
           method:'POST',
           headers:{
             'Authorization': `Bearer ${accessToken}`,
@@ -53,7 +48,6 @@ function AddPatient(){
           body:JSON.stringify(formData),
       })
     .then(response =>{
-      console.log(response)
         if(!response.ok){
           throw new Error("Failed");
         }
@@ -61,7 +55,7 @@ function AddPatient(){
     })
     .then(data =>{
        
-        console.log('Form submitted success',data);
+        //console.log('Form submitted success',data);
 
       if(data.success){
         setErrors([])
@@ -75,24 +69,16 @@ function AddPatient(){
       }
       else
       {
-        console.log(data.errors);
+       // console.log(data.errors);
         setErrors(data.errors)
         setMessage(data.message +"! Please try again")
         
       }
-      // clear form data
-    //   setFormData({
-    //       name:'',
-    //       age:'',
-    //       gender:'',
-    //       mobile:'',
-    //       address:'',
-    //       careTaker:''
-    // });
+
 })
 
   .catch(error=>{
-      console.error('Error: ',error);
+      //console.error('Error: ',error);
       navigate("/")      //nevigate to the login page 
   });
 
@@ -102,7 +88,7 @@ function AddPatient(){
       <Col sm={2}></Col>
       <Col sm={8} style={{marginTop:50}}>
 
-     {message =="" ? <></> : <>
+     {message ==="" ? <></> : <>
       <Alert variant= {errors.length>0 ?"danger" :"success" }>
           {message}
          <ul>

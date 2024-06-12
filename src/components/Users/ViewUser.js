@@ -42,7 +42,6 @@ function ViewUser(){
         })
         .then(data =>{
            
-            console.log(data);
             if(data.success)
             {
                 setUserData(data.users)
@@ -53,7 +52,7 @@ function ViewUser(){
             }
 
         }).catch(error=>{
-            console.error('Login Error: ',error);
+           // console.error('Login Error: ',error);
             navigate('/')
         });
     }

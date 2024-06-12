@@ -15,6 +15,7 @@ function DeleteMedicine(props)
 
     const API_URL = process.env.REACT_APP_BACKEND_API
 
+    const {onDelete}=props;
     function deleteMedicine()
     {
             fetch(`${API_URL}/medicines/`+props.id,{
@@ -33,11 +34,12 @@ function DeleteMedicine(props)
             })
             .then(data =>{
             
-                console.log(data);
+                //console.log(data);
                if(data.success)
                 {
                     //alert(data.message)
                     setMsg(`${props.brandName}, Medicine is deleted!`)
+                    onDelete();
                     setTimeout(()=>{
                         handleClose()
                     },100)
@@ -48,12 +50,12 @@ function DeleteMedicine(props)
                 }
 
             }).catch(error=>{
-                console.error('Login Error: ',error);
+               // console.error('Login Error: ',error);
                 navigate('/')
             });
         }
 
-    return <>
+    return <>  
      <Button className="btn btn-warning"  style={{marginLeft:3}} onClick={handleShow}>Delete</Button>
     <Modal show={deleteModalShow} onHide={handleClose}>
         <Modal.Header closeButton>

@@ -15,7 +15,7 @@ const status = ['New','Active','Closed','Hold'];
 function AddIncident(){
 
   const { patientId,patientName} = useParams(); // Access the parameters of url
-  console.log(patientName)
+  //console.log(patientName)
   //const [patientName, setPatientName] = useState(patient_name)
 
   const {accessToken} = useContext(mediContext)
@@ -36,14 +36,13 @@ function AddIncident(){
 
   const handleChange=(e) =>{
       setFormData({...formData,[e.target.name]:e.target.value});
-      console.log(formData);
-  };
+      //console.log(formData);
+  };   
 
   function handleSubmit(e){
-      e.preventDefault();
-      console.log("Hello");
+      e.preventDefault();  
 
-      console.log(formData);
+      //console.log(formData);
 
       const API_URL = process.env.REACT_APP_BACKEND_API
 
@@ -57,7 +56,7 @@ function AddIncident(){
           body:JSON.stringify(formData),
       })
     .then(response =>{
-      console.log(response)
+      ///console.log(response)
         if(!response.ok){
           throw new Error("Failed");
         }
@@ -65,7 +64,7 @@ function AddIncident(){
     })
     .then(data =>{
        
-        console.log('Form submitted success',data);
+        //console.log('Form submitted success',data);
 
       if(data.success){
         setErrors([])
@@ -79,7 +78,7 @@ function AddIncident(){
       }
       else
       {
-        console.log(data.errors);
+        //console.log(data.errors);
         setErrors(data.errors)
         setMessage(data.message +"! Please try again")
         

@@ -34,7 +34,7 @@ const frequencyData = [
     { abbr: "GEL", description: "Gel" },
     { abbr: "LOT", description: "Lotion" },
     { abbr: "AER", description: "Aerosol" }
-  ]
+  ]   
 
   const doctors = [
     { doctor: "Dr. Himanshu",title:"Physician",degree:"MBBS, M.D.",department:"General Medicine"},

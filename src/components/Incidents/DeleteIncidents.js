@@ -12,7 +12,9 @@ function DeleteIncident(props)
     const handleShow = () => setDeleteModalShow(true);
 
     const navigate=useNavigate()
-
+    
+    const {onDelete}=props;
+    
     const [msg,setMsg] = useState(`Do you really want to Delete , ${props.name}' incident, created on, ${props.date}, whose currrent status is, ${props.status}?`)
     
     const API_URL = process.env.REACT_APP_BACKEND_API
@@ -36,14 +38,15 @@ function DeleteIncident(props)
             })
             .then(data =>{
             
-                console.log(data);
+                //console.log(data);
                if(data.success)
                 {
                     //alert(data.message)
                     setMsg(`${props.name}' incident created on ${props.date}, with current status ${props.status} is deleted!`)
+                    onDelete();
                     setTimeout(()=>{
                         handleClose()
-                    },2000)
+                    },100)
                 }
                 else
                 {
@@ -51,9 +54,9 @@ function DeleteIncident(props)
                 }
 
             }).catch(error=>{
-                console.error('Login Error: ',error);
+                //console.error('Login Error: ',error);
                 navigate('/')
-            });
+            });   
         }
 
     return <>
@@ -70,7 +73,7 @@ function DeleteIncident(props)
             <Button variant="primary" onClick={deleteIncident}>
                 Yes
             </Button>
-        </Modal.Footer>
+        </Modal.Footer>  
       </Modal>
     </>
 }
