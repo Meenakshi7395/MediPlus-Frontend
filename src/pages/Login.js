@@ -9,6 +9,7 @@ import Img from '../components/Images/clinic.jpg';
 
 import { useContext } from 'react';
 import mediContext from '../context/mediplus/mediContext';
+
 function Login(){
   
     const {onLogin}= useContext(mediContext)
@@ -24,6 +25,7 @@ function Login(){
     const handleChange=(e) =>{
         setFormData({...formData,[e.target.name]:e.target.value});
     };
+    const API_URL = process.env.REACT_APP_BACKEND_API
 
     function handleSubmit(e){
         e.preventDefault();
@@ -31,7 +33,7 @@ function Login(){
         //Dispaly submitting msg
         setSubmitting(true );
         
-        fetch("http://localhost:5000/users/login",{
+        fetch(`${API_URL}/users/login`,{
             method:'POST',
             headers:{
                 'Content-Type':'application/json',
