@@ -21,7 +21,7 @@ import ViewOPD from './components/OPDs/ViewOPD';
 import React from 'react';
 import MediState from './context/mediplus/MediState';
 
-import Navigation from './layouts/Navigation';
+//import Navigation from './layouts/Navigation';
 
 function App() {
   return (
