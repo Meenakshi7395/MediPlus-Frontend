@@ -1,5 +1,5 @@
 import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
+import {Row,Button} from 'react-bootstrap';
 import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
 import Table from 'react-bootstrap/Table';
@@ -9,6 +9,7 @@ import DeleteMedicine from '../components/Medicines/DeleteMedicine';
 import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import mediContext from '../context/mediplus/mediContext';
+import { Spinner } from 'react-bootstrap';
 
 function Medicines(){
 
@@ -20,6 +21,7 @@ function Medicines(){
 
     const [isDataChange,setIsDataChange] = useState(0)
     
+    const [isDataReady,setIsDataReady] = useState(false)
     function dataChange(){
         setIsDataChange(isDataChange+1);
     }
@@ -45,6 +47,7 @@ function Medicines(){
             if(data.success)
             {
                 setMedicines(data.medicines)
+                setIsDataReady(true)
             }
             else
             {
@@ -68,6 +71,7 @@ function Medicines(){
             <Col sm={3}></Col>
         </Row>
         
+        {isDataReady ?
         <Container>
         <Row>
             <Col sm={1}></Col>
@@ -115,6 +119,16 @@ function Medicines(){
             <Col sm={1}></Col>
         </Row>
         </Container>
+         :<div style={{marginLeft:100}}><Button variant="primary" disabled>
+         <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true"/>
+         <span className="visually-hidden">Loading...</span>
+       </Button>{' '}
+       <Button variant="primary" disabled>
+         <Spinner as="span" animation="grow" size="sm" role="status" aria-hidden="true"
+         />
+         Loading...
+       </Button>
+       </div>}
     </>
 }
 export default Medicines;

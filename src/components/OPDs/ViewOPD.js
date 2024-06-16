@@ -1,6 +1,6 @@
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
-import { Card, Spinner, Table } from 'react-bootstrap';
+import { Card, Spinner, Table ,Button} from 'react-bootstrap';
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from 'react-router-dom';
 import Img from '../Images/logo.png';
@@ -173,9 +173,16 @@ function ViewOPD() {
                             <Link to={"/incidents/view/" + opdData.incident._id} className="btn btn-secondary" style={{ marginBottom: 5 }}>Back to Incidents</Link>
                             
                         </Card.Body>
-                        : <Spinner animation="border" role="status">
-                            <span className="visually-hidden">Loading...</span>
-                        </Spinner>}
+                        :<div style={{marginLeft:100}}><Button variant="primary" disabled>
+                        <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true"/>
+                        <span className="visually-hidden">Loading...</span>
+                      </Button>{' '}
+                      <Button variant="primary" disabled>
+                        <Spinner as="span" animation="grow" size="sm" role="status" aria-hidden="true"
+                        />
+                        Loading...
+                      </Button>
+                      </div>}
                 </Card>
             </Col>
             <Col sm="2"></Col>

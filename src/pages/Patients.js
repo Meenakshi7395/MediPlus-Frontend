@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 import DeletePatient from '../components/Patients/DeletePatient';
 import { useNavigate } from 'react-router-dom';
 import mediContext from '../context/mediplus/mediContext';
+import { Spinner } from 'react-bootstrap';
 
 function Patients(){
 
@@ -19,6 +20,8 @@ function Patients(){
     const [deleteModalShow, setDeleteModalShow] = useState(false);
 
     const [isDataChange, setIsDataChange]= useState(0);
+
+    const [isDataReady, setIsDataReady] = useState(false);
 
     function dataChange(){
         setIsDataChange(isDataChange+1)
@@ -50,6 +53,7 @@ function Patients(){
             if(data.success)
             {
                 setPatients(data.patients)
+                setIsDataReady(true)
             }
             else
             {
@@ -73,7 +77,7 @@ function Patients(){
             <Col sm={6} ><Card  style={{textAlign:'center', fontFamily:'sans-serif' ,backgroundColor:'#DDA0DD'}} ><h2>Patients Detail</h2> </Card></Col>
             <Col sm={3}></Col>
         </Row>
-        
+        {isDataReady ?
         <Container>
         <Row>
             <Col sm={1}></Col>
@@ -122,6 +126,16 @@ function Patients(){
             <Col sm={1}></Col>
         </Row>
         </Container>
+        :<div style={{marginLeft:100}}><Button variant="primary" disabled>
+        <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true"/>
+        <span className="visually-hidden">Loading...</span>
+      </Button>{' '}
+      <Button variant="primary" disabled>
+        <Spinner as="span" animation="grow" size="sm" role="status" aria-hidden="true"
+        />
+        Loading...
+      </Button>
+      </div>}
     </>
 }
 export default Patients;
