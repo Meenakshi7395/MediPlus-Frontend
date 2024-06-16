@@ -16,9 +16,9 @@ function Navigation (){
             <Navbar.Brand href="">MediPlus</Navbar.Brand>
         
             {user==null ? <></> : <><Nav className="me-auto">
-            <Nav.Link href="/users" onClick={navigate("index.html")} >Users</Nav.Link>
-            <Nav.Link href='/patients'>Patients</Nav.Link>
-            <Nav.Link href='/medicines'>Medicines</Nav.Link>
+            <Nav.Link to="/users" >Users</Nav.Link>
+            <Nav.Link to='/patients'>Patients</Nav.Link>
+            <Nav.Link to='/medicines'>Medicines</Nav.Link>
             {/* <DropdownButton id="dropdown-basic-button" style={{marginLeft:900}}>
                 <Dropdown.Item >Logout</Dropdown.Item>
             </DropdownButton> */}
