@@ -6,6 +6,7 @@ import mediContext from '../context/mediplus/mediContext';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { NavDropdown } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import { LinkContainer } from 'react-router-bootstrap';
 
 function Navigation (){
     const navigate = useNavigate
@@ -16,9 +17,18 @@ function Navigation (){
             <Navbar.Brand href="">MediPlus</Navbar.Brand>
         
             {user==null ? <></> : <><Nav className="me-auto">
-            <Nav.Link to="/users" >Users</Nav.Link>
-            <Nav.Link to='/patients'>Patients</Nav.Link>
-            <Nav.Link to='/medicines'>Medicines</Nav.Link>
+            <LinkContainer to="/users">
+                 <Nav.Link>Users</Nav.Link>
+            </LinkContainer>
+            <LinkContainer to='/patients'>
+                <Nav.Link >Patients</Nav.Link>
+            </LinkContainer>
+            <LinkContainer to='/medicines'>
+                <Nav.Link >Medicines</Nav.Link>
+            </LinkContainer>
+           
+           
+           
             {/* <DropdownButton id="dropdown-basic-button" style={{marginLeft:900}}>
                 <Dropdown.Item >Logout</Dropdown.Item>
             </DropdownButton> */}
