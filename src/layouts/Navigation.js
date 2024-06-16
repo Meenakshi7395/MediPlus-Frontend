@@ -5,8 +5,10 @@ import { useContext } from 'react';
 import mediContext from '../context/mediplus/mediContext';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { NavDropdown } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 
 function Navigation (){
+    const navigate = useNavigate
    const {user,onLogout} = useContext(mediContext)
     return <>    
     <Navbar bg="success" data-bs-theme="dark">
@@ -14,7 +16,7 @@ function Navigation (){
             <Navbar.Brand href="">MediPlus</Navbar.Brand>
         
             {user==null ? <></> : <><Nav className="me-auto">
-            <Nav.Link href="/users">Users</Nav.Link>
+            <Nav.Link href="/users" onClick={navigate("index.html")} >Users</Nav.Link>
             <Nav.Link href='/patients'>Patients</Nav.Link>
             <Nav.Link href='/medicines'>Medicines</Nav.Link>
             {/* <DropdownButton id="dropdown-basic-button" style={{marginLeft:900}}>
