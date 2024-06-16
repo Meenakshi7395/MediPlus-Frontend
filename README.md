@@ -1,11 +1,17 @@
 # MediPlus
-**The MERN stack MediPlus - A OPD Management System**
+**The MERN stack MediPlus - A PATIENTS Management System**
 
-1. A web application provides functionalities for managing Patient records.
-2. Maneging the patient's every time visit as Patient's Incidents record.
-3. Manage OPD for every incidents.
-4. Adding diffent medicines records which is used in adding Prescriptions.
-5. A PDF Generator is also used to show the prescription of Patients.
+``A Patient management system with following main features``
+
+1. Patient Record Management.
+
+2. A Patient can visit the clinic in several medical conditions, the Option of managing Incidents groups all the visits for each case of patient.
+
+3. For a given incident there might be several OPDs of the patient, this is possible with our OPD management system which also allows to print the digital prescription in PDF.
+
+4. We also have provided a feature to manage the medicines available in the clinic. The same are visible during adding prescriptions.
+
+5. JSON web Tokens for authentication.
 
 **Features:**
 

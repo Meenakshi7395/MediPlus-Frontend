@@ -12,7 +12,7 @@ function AddOPD(props) {
     const [formData, setFormData] = useState({
         incident: props.incidentId,
         date: '',
-        doctor: '',
+        doctor: 'Dr. Himanshu',
         fees: '',
         status: "New"
     });

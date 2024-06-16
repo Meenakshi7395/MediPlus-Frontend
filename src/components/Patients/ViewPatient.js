@@ -1,7 +1,7 @@
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Card from 'react-bootstrap/Card';
-import Table from 'react-bootstrap/Table';
+import {Table} from 'react-bootstrap';
 import React, { useState,useEffect,useContext } from "react";
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
@@ -26,6 +26,8 @@ function ViewPatient(){
     })
   
     const[isDataChange,setIsDataChange]=useState(0);
+
+    const [isDataReady,setIsDataReady] = useState(false)
 
     function dataChange(){
         setIsDataChange(isDataChange+1);
@@ -53,6 +55,7 @@ function ViewPatient(){
             if(data.success)
             {
                 setPatientData(data.patient)
+                setIsDataReady(true)
             }
             else
             {
@@ -68,11 +71,13 @@ function ViewPatient(){
     useEffect(()=>{getById()},[isDataChange])
     
     return<>
+    
         <Row>
           <Col sm={1}></Col>
           <Col sm={10} style={{marginTop:50}}>
           <Card style={{backgroundColor:'#FFF0F5'}}>
           <Card.Header style={{backgroundColor:"#DDA0DD",fontFamily:'sans-serif'}}>View Patient's Detail</Card.Header>
+
           <Card.Body>
             <Row>  
                 <Col> <p><strong>Name : </strong>{patientData.name}</p></Col>
@@ -89,7 +94,6 @@ function ViewPatient(){
           </Col>
           <Col sm="1"></Col>
         </Row>
-
         <Row style={{marginTop:20}}>
             <Col sm={1}></Col>
             <Col sm={10} style={{marginTop:"20px"}}>
@@ -138,7 +142,6 @@ function ViewPatient(){
             </Col>
             <Col sm={1}></Col>
         </Row>
-
     </>
 }
 
