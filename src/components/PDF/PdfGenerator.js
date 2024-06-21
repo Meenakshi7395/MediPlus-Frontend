@@ -8,6 +8,8 @@ import { medicineCategoryData } from './Options';
 function PdfGenerator(props){
 
     function generatePdf(){
+
+      try{
         const doc = new jsPDF("p", "mm", "a4");
          console.log(props.OPD);
         
@@ -197,6 +199,11 @@ function PdfGenerator(props){
         //doc.save("generated.pdf");
 
         doc.output('dataurlnewwindow',{filename:"myopd.pdf"})
+      }catch(err)
+      {
+        console.log(err)
+        alert(err)
+      }
     }
 
 

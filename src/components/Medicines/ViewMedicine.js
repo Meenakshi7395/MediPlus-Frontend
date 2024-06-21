@@ -68,9 +68,10 @@ function ViewMedicine(){
           <Col sm={6} style={{marginTop:50}}>
           <Card style={{backgroundColor:'#B0E0E6'}}>
           <Card.Header style={{backgroundColor:"#00BFFF",fontFamily:'sans-serif'}}>View Medicine's Detail</Card.Header>
-          <div style={{border:1,height:"280px",overflowY:"scroll"}}>
+          
 
           <Card.Body>
+          <div style={{border:1,height:"280px",overflowY:"scroll"}}>
             <p><strong>Brand Name : </strong>{medicineData.brandName}</p>
             <p><strong>Chemical Name : </strong> {medicineData.chemicalName}</p>
             <p><strong>category : </strong>{medicineData.category}</p>
@@ -81,8 +82,9 @@ function ViewMedicine(){
             <Link to={"/medicines/"} className="btn btn-secondary">Back</Link>
             <Link to={"/medicines/edit/"+medicineData._id} className="btn btn-info" style={{marginLeft:3}}>Edit</Link>
             <DeleteMedicine id={medicineData._id} brandName={medicineData.brandName}/>
+            </div>
           </Card.Body>
-          </div>
+         
         </Card>
           </Col>
           <Col sm="3"></Col>

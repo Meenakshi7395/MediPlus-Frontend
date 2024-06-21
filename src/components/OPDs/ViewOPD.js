@@ -139,6 +139,7 @@ function ViewOPD() {
 
                             <br />
                             <AddPrescription opdId={opdData._id} onAdd={dataChange} />
+                            
                             <Table responsive="sm" style={{ border: 1 }}>
                                 <thead>
                                     <tr>

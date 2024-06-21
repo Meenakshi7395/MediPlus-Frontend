@@ -3,29 +3,29 @@ import mediContext from "./mediContext";
 
 const MediState =(props)=>{
   
-    const [user,setUser] = useState(JSON.parse(localStorage.getItem('user')))
-    const [accessToken,setAccessToken] = useState(localStorage.getItem("accessToken"))
+    const [user,setUser] = useState(JSON.parse(sessionStorage.getItem('user')))
+    const [accessToken,setAccessToken] = useState(sessionStorage.getItem("accessToken"))
 
     function onLogin(user,token)
     {
         if(user!=undefined)
         {
             setUser(user)
-            localStorage.setItem("user",JSON.stringify(user))
+            sessionStorage.setItem("user",JSON.stringify(user))
         }
 
         if(token!=undefined)
         {
             setAccessToken(token)
-            localStorage.setItem("accessToken",token)
+            sessionStorage.setItem("accessToken",token)
         }
        
     }
 
     function onLogout()
     {
-        localStorage.removeItem("user")
-        localStorage.removeItem("accessToken")
+        sessionStorage.removeItem("user")
+        sessionStorage.removeItem("accessToken")
         setUser(null)
         setAccessToken("")
     }
