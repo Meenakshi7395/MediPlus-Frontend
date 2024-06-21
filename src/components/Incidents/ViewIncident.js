@@ -9,6 +9,7 @@ import AddOPD from '../OPDs/AddOPD';
 import AddVitals from '../OPDs/AddVitals';
 import AddDitails from '../OPDs/AddDetails';
 import mediContext from '../../context/mediplus/mediContext';
+import DeleteOPD from '../OPDs/DeleteOPD';
 
 
 function ViewIncident(){
@@ -29,6 +30,12 @@ function ViewIncident(){
 
     const{ accessToken} = useContext(mediContext)
     /// use this id to make api call to server to fetch the incidents
+
+    const[isDataChange,setIsDataChange]=useState(0);
+
+    function dataChange(){
+        setIsDataChange(isDataChange+1);
+    }
 
     const API_URL = process.env.REACT_APP_BACKEND_API
 
@@ -65,7 +72,7 @@ function ViewIncident(){
         });
     }
 
-    useEffect(()=>{getById()},[])
+    useEffect(()=>{getById()},[isDataChange])
     
     return<>
         <Row>
@@ -132,6 +139,7 @@ function ViewIncident(){
                                         <Link to={"/OPDs/view/"+opd._id} className="btn btn-success" >View</Link>
                                         <AddVitals opdId = {opd._id}/>
                                         <AddDitails opdId={opd._id} diagnosis={opd.diagnosis} chiefComplaint={opd.chiefComplaint} />
+                                        <DeleteOPD id={opd._id} name={incidentData.patient.name} date={opd.date} onDelete={dataChange}/>
                                     </td>
                                 </tr>
                             })}
