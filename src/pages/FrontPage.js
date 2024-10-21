@@ -135,14 +135,37 @@ function FrontPage() {
         </Card>
 
         <Card id='contact'>
-            <h2  style={{ fontSize: 30, textAlign: 'center', fontFamily: 'sans-serif', marginTop: 10, fontWeight: 600 }}>Contact-Me</h2> 
+            <h2  style={{ fontSize: 30, textAlign: 'center', fontFamily: 'sans-serif', marginTop: 20, fontWeight: 600 }}>Contact-Me</h2> 
             <div className='contact-info'>
-                <div>
-                   <p>Hello</p>
+                <div className="contact-text">
+                    <h4>Need any Help! Call Us...</h4>
+                    <p>This is Backend API System for Mediplus and is integerated in Frontend Developed in React. 
+                        Kindly Contact me for more detail
+                    </p>
+                    <div className="contact-list">
+                        <li><i className='bx bxl-gmail' ></i>  meenakshisharma7395@gmail.com</li>
+                        <li><i className='bx bxs-phone' ></i>  8532930049</li>
+                        <li><i className='bx bxs-city' ></i>  Sector 151, Greater Noida, U.P.</li>
+                    </div>
+
+                    <div className="contact-icons">
+                        <a href=""><i class='bx bxl-facebook-circle' ></i></a>
+                        <a href=""><i class='bx bxl-whatsapp' ></i></a>
+                        <a href=""><i class='bx bxl-twitter' ></i></a>
+                        <a href=""><i class='bx bxl-linkedin' ></i></a>
+                    </div>
                 </div>
-                <div>
-                    <h2>Hello</h2>
+
+                <div className='contact-form'>
+                    <form action=''>
+                        <input type="" placeholder="Enter Your Name" required/>
+                        <input type="email" placeholder="Enter Your email" required/>
+                        <input type="" placeholder="Enter Your Subject"/>
+                        <textarea name="" id="" cols="40" rows="10" placeholder="Enter Your Message" required></textarea>
+                        <Link to={""} className="btn btn-success" style={{ marginLeft: 15 ,width:200, marginBottom:10 }}>Submit</Link>
+                    </form>
                 </div>
+
             </div>
         </Card>
 
