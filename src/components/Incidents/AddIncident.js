@@ -9,7 +9,6 @@ import { useNavigate,Link } from "react-router-dom";
 import { useContext } from 'react';
 import mediContext from '../../context/mediplus/mediContext';
 import { doctors } from '../PDF/Options';
-
 const status = ['New','Active','Closed','Hold'];
 
 function AddIncident(){

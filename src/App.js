@@ -20,6 +20,7 @@ import ViewIncident from './components/Incidents/ViewIncident';
 import ViewOPD from './components/OPDs/ViewOPD';
 import React from 'react';
 import MediState from './context/mediplus/MediState';
+import FrontPage from './pages/FrontPage';
 
 //import Navigation from './layouts/Navigation';
 
@@ -30,7 +31,8 @@ function App() {
     <Layout>
       <Routes>
         {/* users all routes */}
-        <Route path="/" element={<Login/>}></Route>
+        <Route path="/" element={<FrontPage/>}></Route>
+        <Route path="/login" element={<Login/>}></Route>
         <Route path="/users" element={<Users/>}></Route>
         <Route path="/users/add" element={<AddUser/>}></Route>
        

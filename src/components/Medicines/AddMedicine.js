@@ -19,7 +19,8 @@ function AddMedicine(){
       manufecturer:''
   });
 
-  const [message,setMessage] = useState("")
+  const [message,setMessage] = useState("") 
+  
   const [errors,setErrors] = useState([])
 
   const navigate = useNavigate()
